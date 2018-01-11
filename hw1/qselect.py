@@ -1,23 +1,26 @@
-import random
+from random import *
 
-def qsort(array):
-    if array == []:
+
+def qselect(k, a):
+    if k < 1 or k > len(a) or a == []:
         return []
     else:
-        index = random.randint(0, len(array)-1)
-        pivot = array[index]
-        left = [x for x in array if x < pivot]
-        right = [x for x in array[0:index] + array[index+1:len(array)] if x >= pivot]
-        return qsort(left) + [pivot] + qsort(right)
-
-
-def qselect(index, array):
-    sorted_array = qsort(array)
-    return sorted_array[index-1]
+        r_index = randint(0, len(a)-1)
+        a[0], a[r_index] = a[r_index], a[0]
+        pivot = a[0]
+        left = [x for x in a if x < pivot]
+        right = [x for x in a[1:] if x >= pivot]
+        l_left = len(left)
+        if k-1 < l_left:
+            return qselect(k, left)
+        elif k-1 == l_left:
+            return pivot
+        else:
+            return qselect(k-l_left-1, right)
 
 
 def main():
-    print(qselect(2, [3, 10, 4, 7, 19]))
+    print(qselect(4, [3, 10, 4, 7, 19]))
     print(qselect(4, [11, 2, 8, 3]))
 
 

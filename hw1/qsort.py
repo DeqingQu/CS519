@@ -1,6 +1,5 @@
-
 def sort(array):
-    if array == []:
+    if not array:
         return []
     pivot = array[0]
     left = [x for x in array if x < pivot]
@@ -9,46 +8,39 @@ def sort(array):
 
 
 def sorted(t):
-    if t == []:
+    if t:
+        return sorted(t[0]) + [t[1]] + sorted(t[2])
+    else:
         return []
-    return sorted(t[0]) + [t[1]] + sorted(t[2])
 
 
 def _search(t, x):
     if t[1] == x:
         return t
     elif t[1] > x:
-        if t[0] == []:
-            return t[0]
-        else:
+        if t[0]:
             return _search(t[0], x)
-    elif t[1] < x:
-        if t[2] == []:
-            return t[2]
         else:
+            return t[0]
+    elif t[1] < x:
+        if t[2]:
             return _search(t[2], x)
+        else:
+            return t[2]
 
 
 def search(t, x):
-    if _search(t, x) == []:
-        return False
-    else:
+    if _search(t, x):
         return True
+    else:
+        return False
 
 
 def insert(t, x):
-    if t[1] == x:
-        return
-    elif t[1] > x:
-        if t[0] == []:
-            t[0] = [[], x, []]
-        else:
-            insert(t[0], x)
-    elif t[1] < x:
-        if t[2] == []:
-            t[2] = [[], x, []]
-        else:
-            insert(t[2], x)
+
+    n = _search(t, x)
+    if n == []:
+        n.extend([[], x, []])
 
 
 def main():
