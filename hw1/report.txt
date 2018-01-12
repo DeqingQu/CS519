@@ -19,9 +19,10 @@ The average-case time complexities of qselect is O(n).
 The average-case is similar to the best-case, if the pivot is chosen randomly. The time complexities = n + n/2 + n/4 + ... + 1 = 2n, which is O(n).
 
 2.
-The average-case time complexities of sorted(t) is O(nlogn). The worst-case time complexities of sorted(t) is O(n^2).
-The average-case time complexities of search(t,x) is O(logn). The worst-case time complexities of search(t,x) is O(n).
-The average-case time complexities of insert(t,x) is O(logn). The worst-case time complexities of insert(t,x) is O(n).
+The average-case (best-case) time complexities of sort(array) is O(nlogn). The worst-case time complexities of sort(array) is O(n^2)
+The time complexities of sorted(t) is O(n).
+The average-case (best-case) time complexities of search(t,x) is O(logn). The worst-case time complexities of search(t,x) is O(n).
+The average-case (best-case) time complexities of insert(t,x) is O(logn). The worst-case time complexities of insert(t,x) is O(n).
 
 Debriefing:
 1. I spend 4 to 5 hours to complete this assignment.
