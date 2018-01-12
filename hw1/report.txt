@@ -1,0 +1,32 @@
+0.
+The worst-case time complexities of quicksort is O(n^2).
+The worst-case appears when the array is sorted and the pivot is always the first element. The partition will operate n times and the time complexities of partition is O(n).
+
+The best-case time complexities of quicksort is O(nlogn).
+The best-case appears when the middle element of the array is chosen as the pivot. The partition will operate logn times and the time complexities of partition is O(n).
+
+The average-case time complexities of quicksort is O(nlogn).
+The average-case is similar to the best-case, if the pivot is chosen randomly.
+
+1.
+The worst-case time complexities of qselect is O(n^2).
+The worst-case appears when the array is sorted and the pivot is always the first element. The partition will operate n times and the time complexities of partition is O(n).
+
+The best-case time complexities of qselect is O(n).
+The best-case appears when the first pivot is the element we need. The time complexities is n, which is O(n).
+
+The average-case time complexities of qselect is O(n).
+The average-case is similar to the best-case, if the pivot is chosen randomly. The time complexities = n + n/2 + n/4 + ... + 1 = 2n, which is O(n).
+
+2.
+The average-case time complexities of sorted(t) is O(nlogn). The worst-case time complexities of sorted(t) is O(n^2).
+The average-case time complexities of search(t,x) is O(logn). The worst-case time complexities of search(t,x) is O(n).
+The average-case time complexities of insert(t,x) is O(logn). The worst-case time complexities of insert(t,x) is O(n).
+
+Debriefing:
+1. I spend 4 to 5 hours to complete this assignment.
+2. I rate it as moderate.
+3. I worked it alone.
+4. I understand the material 100%.
+5. I am new to Python and the Python tutorial is very helpful.
+
