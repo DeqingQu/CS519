@@ -1,0 +1,15 @@
+0.
+(a) merge sort is stable
+(b) quick sort with the first element as pivot is stable
+(c) quick sort with randomized pivot is unstable
+(d) selection sort is stable
+(e) insertion sort is stable
+(f) heap sort is not stable
+
+Debriefing
+0. Deqing Qu
+1. 2 hours
+2. easy
+3. I work on it alone
+4. 95%
+5. Grading system is great and easy to use. 
