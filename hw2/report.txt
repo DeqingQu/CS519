@@ -2,7 +2,7 @@
 (a) merge sort is stable
 (b) quick sort with the first element as pivot is stable
 (c) quick sort with randomized pivot is unstable
-(d) selection sort is stable
+(d) selection sort is stable (inplace is not stable)
 (e) insertion sort is stable
 (f) heap sort is not stable
 
