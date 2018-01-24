@@ -45,7 +45,7 @@ def find(a, n, k):
 
 def main():
 
-    print(find([1,2,3,4,4,7], 5.2, 2))
+    print(find([1,2,3,4,4,7], 1.8, 3))
     print(find([1,2,3,4,4,7], 6.5, 3))
     print(find([1, 2, 3, 4, 4, 6, 6], 5, 3))
     print(find([1,2,3,4,4,5,6], 4, 5))
