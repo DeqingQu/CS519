@@ -4,17 +4,17 @@ import bisect
 def find(a, x, k):
 
     len_a = len(a)
-    if k <= 0:
-        return []
-    if k >= len_a:
-        return a
+    # if k <= 0:
+    #     return []
+    # if k >= len_a:
+    #     return a
+    #
+    # if p == 0:
+    #     return a[:k]
+    # if p == len_a:
+    #     return a[len_a - k:]
 
     p = bisect.bisect_left(a, x)
-
-    if p == 0:
-        return a[:k]
-    if p == len_a:
-        return a[len_a - k:]
 
     left = p-1
     right = p
