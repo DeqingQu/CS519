@@ -9,13 +9,13 @@ def qselect(k, a):
         a[0], a[r_index] = a[r_index], a[0]
         pivot = a[0]
         left = [x for x in a if x < pivot]
-        right = [x for x in a[1:] if x >= pivot]
         l_left = len(left)
         if k-1 < l_left:
             return qselect(k, left)
         elif k-1 == l_left:
             return pivot
         else:
+            right = [x for x in a[1:] if x >= pivot]
             return qselect(k-l_left-1, right)
 
 

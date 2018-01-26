@@ -1,52 +1,42 @@
 import bisect
 
 
-def find(a, n, k):
+def find(a, x, k):
+
+    len_a = len(a)
     if k <= 0:
         return []
-    if k >= len(a):
+    if k >= len_a:
         return a
 
-    p = bisect.bisect_left(a, n)
+    p = bisect.bisect_left(a, x)
 
     if p == 0:
         return a[:k]
-    if p == len(a):
-        return a[len(a) - k:]
+    if p == len_a:
+        return a[len_a - k:]
 
-    diff_1 = abs(a[p-1] - n)
-    diff_2 = abs(a[p] - n)
-    if diff_1 <= diff_2:
-        p -= 1
-
-    i = p - 1
-    j = p + 1
-    counter = 1
-    result = [a[p]]
+    left = p-1
+    right = p
+    counter = 0
     while counter < k:
-        if i <= 0:
-            result.append(a[j])
-            j += 1
-            counter += 1
-            continue
-        if j >= len(a):
-            result.insert(0, a[i])
-            i -= 1
-            counter += 1
-            continue
-
-        diff_i = abs(a[i] - n)
-        diff_j = abs(a[j] - n)
-        if diff_i <= diff_j:
-            result.insert(0, a[i])
-            i -= 1
-            counter += 1
+        if left == -1:
+            right += k - counter
+            break
+        elif right == len_a:
+            left -= k - counter
+            break
         else:
-            result.append(a[j])
-            j += 1
-            counter += 1
+            diff_l = abs(a[left] - x)
+            diff_r = abs(a[right] - x)
+            if diff_l <= diff_r:
+                left -= 1
+                counter += 1
+            else:
+                right += 1
+                counter += 1
 
-    return result
+    return a[left+1:right]
 
 
 if __name__ =="__main__":
