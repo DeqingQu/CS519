@@ -1,5 +1,5 @@
 import random
-
+import heapq
 
 class Pair(object):
     def __init__(self, x, y):
@@ -15,6 +15,12 @@ class Pair(object):
     def __gt__(self, other):
         return self.x + self.y > other.x + other.y or (self.x + self.y == other.x + other.y and self.y > other.y)
 
+    def __le__(self, other):
+        return self == other or self < other
+
+    def __ge__(self, other):
+        return self == other or self > other
+
 def qselect(k, a):
     if k < 1 or k > len(a) or a == []:
         return []
@@ -29,7 +35,7 @@ def qselect(k, a):
         elif k-1 == l_left:
             return pivot
         else:
-            right = [x for x in a[1:] if x > pivot or x == pivot]
+            right = [x for x in a[1:] if x >= pivot]
             return qselect(k-l_left-1, right)
 
 def nbesta(a, b, n):
@@ -57,7 +63,17 @@ def nbestb(a, b, n):
     return res
 
 def nbestc(a, b, n):
-    return ()
+    a.sort()
+    b.sort()
+    heap = []
+    res = []
+    heapq.heappush(heap, (Pair(a[0], b[0]), 0, 0))
+    while len(res) < n:
+        (w, i, j) = heapq.heappop(heap)
+        res.append((w.x, w.y))
+        heapq.heappush(heap, (Pair(a[i+1], b[j]), i+1, j))
+        heapq.heappush(heap, (Pair(a[i], b[j+1]), i, j+1))
+    return res
 
 if __name__ == '__main__':
     a = [4, 1, 5, 3]
