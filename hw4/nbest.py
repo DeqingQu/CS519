@@ -1,26 +1,49 @@
 import random
 
+
+class Pair(object):
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __lt__(self, other):
+        return self.x + self.y < other.x + other.y or (self.x + self.y == other.x + other.y and self.y < other.y)
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+    def __gt__(self, other):
+        return self.x + self.y > other.x + other.y or (self.x + self.y == other.x + other.y and self.y > other.y)
+
 def qsort(a):
     if a == []:
         return []
     pindex = random.randint(0, len(a)-1)
     a[0], a[pindex] = a[pindex], a[0]
-    (pivot_x, pivot_y) = a[0]
-    left = [(w_x, w_y) for (w_x, w_y) in a if ((w_x + w_y) < (pivot_x + pivot_y) or ((w_x + w_y) == (pivot_x + pivot_y) and w_y < pivot_y))]
-    middle = [(w_x, w_y) for (w_x, w_y) in a if (w_x == pivot_x and w_y == pivot_y)]
-    right = [(w_x, w_y) for (w_x, w_y) in a if (w_x + w_y) > (pivot_x + pivot_y) or ((w_x + w_y) == (pivot_x + pivot_y) and w_x > pivot_x)]
+    pivot = a[0]
+    left = [w for w in a if w < pivot]
+    middle = [w for w in a if w == pivot]
+    right = [w for w in a if w > pivot]
     return qsort(left) + middle + qsort(right)
+
+def qselect(a, k):
+    return a
 
 def nbesta(a, b, n):
     product = []
     for va in a:
         for vb in b:
-            product.append((va, vb))
+            product.append(Pair(va, vb))
     sorted_product = qsort(product)
-    return sorted_product[:n]
+    return [(w.x, w.y) for w in sorted_product[:n]]
 
 def nbestb(a, b, n):
-    return ()
+    product = []
+    for va in a:
+        for vb in b:
+            product.append((va, vb))
+    return qselect(product, n)
 
 def nbestc(a, b, n):
     return ()
