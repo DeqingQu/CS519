@@ -13,7 +13,7 @@ def _kmergesorted(lst, k):
         heap.append((array[0], i))
         indexes.append(0)
     heapq.heapify(heap)
-    while len(res)+k < counter:
+    while len(res)+len(heap) < counter:
         (value, i) = heap[0]
         res.append(value)
         array = lst[i]
@@ -31,6 +31,7 @@ def _kmergesorted(lst, k):
         res.append(heapq.heappop(heap)[0])
     return res
 
+
 def kmergesort(a, k):
     l = len(a)
     if l < 2:
@@ -42,4 +43,4 @@ def kmergesort(a, k):
 
 
 if __name__ == '__main__':
-    print(kmergesort([1,3,5,2,3,6,0,7], 5))
+    print(kmergesort([1,3,5,2,3,6,0,7], 3))
