@@ -67,17 +67,30 @@ def nbestc(a, b, n):
     b.sort()
     heap = []
     res = []
+    depth_a = []
+    depth_b = []
+    for _ in range(len(a)):
+        depth_a.append(0)
+        depth_b.append(0)
+    depth_a[0] = 1
+    depth_b[0] = 1
     heapq.heappush(heap, (Pair(a[0], b[0]), 0, 0))
     while len(res) < n:
         (w, i, j) = heapq.heappop(heap)
         res.append((w.x, w.y))
-        heapq.heappush(heap, (Pair(a[i+1], b[j]), i+1, j))
-        heapq.heappush(heap, (Pair(a[i], b[j+1]), i, j+1))
+        if i+1 < len(a) and depth_a[i+1] <= j:
+            heapq.heappush(heap, (Pair(a[i+1], b[j]), i+1, j))
+            depth_a[i+1] += 1
+            depth_b[j] += 1
+        if j+1 < len(b) and depth_b[j+1] <= i:
+            heapq.heappush(heap, (Pair(a[i], b[j+1]), i, j+1))
+            depth_b[j+1] += 1
+            depth_a[i] += 1
     return res
 
 if __name__ == '__main__':
     a = [4, 1, 5, 3]
     b = [2, 6, 3, 4]
-    print(nbesta(a, b, 4))
-    print(nbestb(a, b, 4))
-    print(nbestc(a, b, 4))
+    print(nbesta(a, b, 15))
+    print(nbestb(a, b, 15))
+    print(nbestc(a, b, 15))

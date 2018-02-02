@@ -34,7 +34,7 @@ def find(a, x, k):
     result = []
     count = 0
     for n in a:
-        if abs(n - x) < t and count < k:
+        if abs(n - x) < t:
             result.append(n)
             count += 1
     for n in a:
