@@ -1,34 +1,20 @@
 import heapq
 from math import ceil
-from collections import defaultdict
 
-def _kmergesorted(lst, k):
 
-    res = []
+def _kmergesorted(lst):
     heap = []
-    indexes = []
-    counter = 0
+    res = []
     for i, array in enumerate(lst):
-        counter += len(array)
-        heap.append((array[0], i))
-        indexes.append(0)
-    heapq.heapify(heap)
-    while len(res)+len(heap) < counter:
-        (value, i) = heap[0]
+        heapq.heappush(heap, (array[0], 0, i))
+    while heap:
+        #   value is the minimum element
+        #   i is the index of the min in the k-th array
+        #   k is the index of the array in lst
+        value, i, k = heapq.heappop(heap)
         res.append(value)
-        array = lst[i]
-        if indexes[i]+1 < len(array):
-            heapq.heapreplace(heap, (array[indexes[i]+1], i))
-            indexes[i] += 1
-        else:
-            for i, index in enumerate(indexes):
-                array = lst[i]
-                if index+1 < len(array):
-                    heapq.heapreplace(heap, (array[index+1], i))
-                    indexes[i] += 1
-                    break
-    while len(res) < counter:
-        res.append(heapq.heappop(heap)[0])
+        if i+1 < len(lst[k]):
+            heapq.heappush(heap, (lst[k][i+1], i+1, k))
     return res
 
 
@@ -39,7 +25,7 @@ def kmergesort(a, k):
 
     j = ceil(len(a)/k)
     lst = [kmergesort(a[i:i+j], k) for i in range(0, len(a), j)]
-    return _kmergesorted(lst, k)
+    return _kmergesorted(lst)
 
 
 if __name__ == '__main__':
