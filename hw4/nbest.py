@@ -67,8 +67,8 @@ def nbestc(a, b, n):
     b.sort()
     heap = []
     res = []
-    depth_a = []
-    depth_b = []
+    depth_a = []        # depth in array a
+    depth_b = []        # depth in array b
     for _ in range(len(a)):
         depth_a.append(0)
         depth_b.append(0)

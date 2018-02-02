@@ -1,4 +1,5 @@
 import heapq
+from math import ceil
 from collections import defaultdict
 
 def _kmergesorted(lst, k):
@@ -34,15 +35,11 @@ def kmergesort(a, k):
     l = len(a)
     if l < 2:
         return a
-    lst = []
-    i = 0
-    while i < k:
-        # lst.append(kmergesort(a[i*(l//k+1):(i+1)*(l//k+1)], k))
-        lst.append(a[i*(l//k+1):(i+1)*(l//k+1)])
-        i += 1
+
+    j = ceil(len(a)/k)
+    lst = [kmergesort(a[i:i+j], k) for i in range(0, len(a), j)]
     return _kmergesorted(lst, k)
 
 
 if __name__ == '__main__':
-    # print(kmergesort([4,1,5,2,6,3,7,0], 3))
-    print(kmergesort([1,3,5,2,3,6,0,7], 3))
+    print(kmergesort([1,3,5,2,3,6,0,7], 5))
