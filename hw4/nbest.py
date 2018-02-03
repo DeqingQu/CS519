@@ -38,7 +38,8 @@ def qselect(k, a):
             right = [x for x in a[1:] if x >= pivot]
             return qselect(k-l_left-1, right)
 
-def nbesta(a, b, n):
+def nbesta(a, b):
+    n = len(a)
     product = []
     for va in a:
         for vb in b:
@@ -46,23 +47,27 @@ def nbesta(a, b, n):
     product.sort()
     return [(w.x, w.y) for w in product[:n]]
 
-def nbestb(a, b, n):
+def nbestb(a, b):
+    n = len(a)
     product = []
     for va in a:
         for vb in b:
             product.append(Pair(va, vb))
     p = qselect(n, product)
-    res = [(w.x, w.y) for w in product if w < p]
-    i = 0
-    lp = len(product)
-    while len(res) < n and i < lp:
-        w = product[i]
-        if w == p:
-            res.append((w.x, w.y))
-        i += 1
+    heap = [w for w in product if w < p]
+    for w in product:
+        if w == p and len(heap) <= n:
+            heap.append(w)
+    #   heap sort
+    heapq.heapify(heap)
+    res = []
+    for _ in range(len(heap)):
+        p = heapq.heappop(heap)
+        res.append((p.x, p.y))
     return res
 
-def nbestc(a, b, n):
+def nbestc(a, b):
+    n = len(a)
     a.sort()
     b.sort()
     heap = []
@@ -91,6 +96,6 @@ def nbestc(a, b, n):
 if __name__ == '__main__':
     a = [4, 1, 5, 3]
     b = [2, 6, 3, 4]
-    print(nbesta(a, b, 15))
-    print(nbestb(a, b, 15))
-    print(nbestc(a, b, 15))
+    print(nbesta(a, b))
+    print(nbestb(a, b))
+    print(nbestc(a, b))

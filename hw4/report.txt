@@ -1,0 +1,12 @@
+
+1.
+nbesta: O(N^2 + N^2*logN^2) = O(N^2logN)
+nbestb: O(N^2 + N^2 + NlogN) = O(N^2)
+nbestc: O(2*NLogN + logN) = O(NlogN)
+
+
+2. Time complexity of k-way merge sort is still O(NlogN)
+The time complexity of merging k sorted array is O(NlogK). All elements will push to the heap whose size is K and the time consumed is logK times of N.
+N elements will slip into k groups and this operation will execute logkN times. So the total time complexity is NlogK * logkN = NlogN.
+
+
