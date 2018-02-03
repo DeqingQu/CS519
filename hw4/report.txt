@@ -1,3 +1,5 @@
+0.
+
 
 1.
 nbesta: O(N^2 + N^2*logN^2) = O(N^2logN)
@@ -5,8 +7,32 @@ nbestb: O(N^2 + N^2 + NlogN) = O(N^2)
 nbestc: O(2*NLogN + logN) = O(NlogN)
 
 
-2. Time complexity of k-way merge sort is still O(NlogN)
+2. The time complexity of k-way merge sort is still O(NlogN)
 The time complexity of merging k sorted array is O(NlogK). All elements will push to the heap whose size is K and the time consumed is logK times of N.
 N elements will slip into k groups and this operation will execute logkN times. So the total time complexity is NlogK * logkN = NlogN.
 
 
+3. The time complexity of k smallest number in data stream is O(nlogk)
+The size of heap is k and the time complexities of push, pop, replace are all O(k). The time consumed on pushing all elements to heap is O(nlogk).
+The time complexity of pop all elements in heap is O(klogk), so the total time complexity is O(nlogk + klogk) = O(nlogk)
+
+4.
+The time complexity of closest_sorted_slow is O(n + logn + k)
+The time complexity of closest_sorted_slow2 is O(logn + n + k)
+
+5.
+                                                push      pop-min       peak      heapify
+   unsorted array                               O(1)      O(n)          O(n)
+   sorted array (highest priority first)        O(n)      O(n)          O(1)      O(nlogn)
+   sorted array (lowest priority first)         O(n)      O(1)          O(1)      O(nlogn)
+   linked list (sorted)                         O(n)      O(1)          O(1)
+   binary heap                                  O(logn)   O(logn)       O(1)      O(n)
+
+Debriefing (required!): --------------------------
+0. Deqing Qu
+1. 6 hours or more
+2. difficult. Q1 and Q2 are difficult and I spend a lot time on them.
+3. I worked alone first, but I found some questions that I can't solve alone. I am confused whether we can sort the result after qselect and asked TA some questions in his office hour.
+4. 90%
+5. The material of the class is becoming more difficult and I have to spend more time on this class. The questions in homework are very interesting and let us have a deeper understanding of the material in this class.
+6. nothing
