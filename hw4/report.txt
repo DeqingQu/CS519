@@ -1,5 +1,21 @@
 0.
+(a) The time complexity of push in heap is O(logn) and the time complexity of push n elements to heap is O(nlogn)
+The time complexity of heapify can be presented as n/2 + n/4*2 + n/8*3 + n/2^h*h = O(n)
 
+(b)
+# test time of heapify
+def test1():
+    a = list(range(100000))
+    random.shuffle(a)
+    heapq.heapify(a)
+
+# test time of push each element to heap
+def test2():
+    a = list(range(100000))
+    random.shuffle(a)
+    heap = []
+    for x in a:
+        heapq.heappush(heap, x)
 
 1.
 nbesta: O(N^2 + N^2*logN^2) = O(N^2logN)
