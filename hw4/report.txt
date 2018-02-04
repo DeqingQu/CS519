@@ -22,10 +22,10 @@ The time complexity of closest_sorted_slow2 is O(logn + n + k)
 
 5.
                                                 push      pop-min       peak      heapify
-   unsorted array                               O(1)      O(n)          O(n)
+   unsorted array                               O(1)      O(n)          O(n)      O(1)
    sorted array (highest priority first)        O(n)      O(n)          O(1)      O(nlogn)
    sorted array (lowest priority first)         O(n)      O(1)          O(1)      O(nlogn)
-   linked list (sorted)                         O(n)      O(1)          O(1)
+   linked list                                  O(1)      O(n)          O(n)      O(1)
    binary heap                                  O(logn)   O(logn)       O(1)      O(n)
 
 Debriefing (required!): --------------------------
