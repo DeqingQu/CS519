@@ -5,17 +5,26 @@ The time complexity of heapify can be presented as n/2 + n/4*2 + n/8*3 + n/2^h*h
 (b)
 # test time of heapify
 def test1():
-    a = list(range(100000))
+    a = list(range(1000000))
     random.shuffle(a)
     heapq.heapify(a)
 
 # test time of push each element to heap
 def test2():
-    a = list(range(100000))
+    a = list(range(1000000))
     random.shuffle(a)
     heap = []
     for x in a:
         heapq.heappush(heap, x)
+
+The consumed time of test1() is 1.14 s ± 27.5 ms per loop
+The consumed time of test2() is 1.42 s ± 73.2 ms per loop
+
+(c)
+If the array is sorted, the push element method don't need to swap any element and the time is very short.
+If the array is sorted, the heapify method don't need to swap any element either and the time is also very short.
+If the array is reversed-sorted, the push element method need to swap h times for each element and the time should be long. But when I ran the code, the time consumed for reversed array is less than random array.
+If the array is reversed-sorted, the heapify method need to swap many times for each element and the time should be long.
 
 1.
 nbesta: O(N^2 + N^2*logN^2) = O(N^2logN)
