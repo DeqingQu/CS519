@@ -55,7 +55,7 @@ The time complexity of closest_sorted_slow2 is O(logn + n + k)
 
 Debriefing (required!): --------------------------
 0. Deqing Qu
-1. 6 hours or more
+1. 7 hours or more
 2. difficult. Q1 and Q2 are difficult and I spend a lot time on them.
 3. I worked alone first, but I found some questions that I can't solve alone. I am confused whether we can sort the result after qselect and asked TA some questions in his office hour.
 4. 90%
