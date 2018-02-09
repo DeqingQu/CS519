@@ -1,14 +1,17 @@
 
 
 def max_wis(a):
-    mis = {-1:0, 0:0}
+    mis = {-1:(0, []), 0:(0, [])}
     def f(l):
-        if l == -1 or l == 0:
-            return 0
         if l not in mis:
-            x = f(l-1)
-            y = f(l-2)
-            mis[l] = max(x, y+a[l-1])
+            (x, x_s) = f(l-1)
+            (y, y_s) = f(l-2)
+            if x > y + a[l-1]:
+                mis[l] = (x, x_s)
+            else:
+                n = list(y_s)
+                n.append(a[l-1])
+                mis[l] = (y + a[l-1], n)
         return mis[l]
     return f(len(a))
 
