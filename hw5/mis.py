@@ -20,15 +20,14 @@ def max_wis(a):
     y = (0, [])
     for i in range(0, len(a)):
         tmp = x
-        if x[0] > y[0] + a[i]:
-            x = y
-        else:
+        if x[0] < y[0] + a[i]:
             n = list(y[1])
             n.append(a[i])
             x = (y[0] + a[i], n)
         y = tmp
     return x
 
+print(max_wis([7, 8, 5, 4, 6, 1, 1, 6]))
 print(max_wis([7, 8, 5]))
 print(max_wis([-1, 8, 10]))
 print(max_wis([]))
