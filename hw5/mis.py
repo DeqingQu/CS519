@@ -1,6 +1,6 @@
 
 
-def max_wis2(a):
+def max_wis(a):
     mis = {-1:(0, []), 0:(0, [])}
     def f(l):
         if l not in mis:
@@ -15,7 +15,7 @@ def max_wis2(a):
         return mis[l]
     return f(len(a))
 
-def max_wis(a):
+def max_wis2(a):
     x = (0, [])
     y = (0, [])
     for i in range(0, len(a)):
