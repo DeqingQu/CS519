@@ -1,0 +1,3 @@
+0.
+The time complexity of Fibonacci is O(n). Though f(n) grows exponentially, each f(n) is calculated once.
+
