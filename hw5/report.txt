@@ -1,8 +1,22 @@
 0.
-The time complexity of Fibonacci is O(n). Though f(n) grows exponentially, each f(n) is calculated once.
+The time complexity of Fibonacci is O(1.618^n). The Fibonacci is defined as F(n) = F(n-1) + F(n-2) and the math solution is F(n) = （(1+√￣5)/2)^n +（(1-√￣5)/2)^n. T(n) = O(（(1+√￣5)/2)^n) = O(1.618^n)
 
 1.
 The time complexity of Maximum Weighted Independent Set is O(n)
+
+As I can't update mis.py file, I just add the code of max_wis2 here.
+
+def max_wis2(a):
+    x = (0, [])
+    y = (0, [])
+    for i in range(0, len(a)):
+        tmp = x
+        if x[0] < y[0] + a[i]:
+            n = list(y[1])
+            n.append(a[i])
+            x = (y[0] + a[i], n)
+        y = tmp
+    return x
 
 2.
 The time complexity of number of BSTs is O(n^2).
