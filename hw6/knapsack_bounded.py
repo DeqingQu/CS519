@@ -13,11 +13,14 @@ def best(W, items):
             max_v = 0
             w = items[i-1][0]
             counter = min(items[i-1][2], x//w)
+            value = [0] * len(items)
             for j in range(0, counter+1):
                 v, a = best_helper(x - j*w, i-1)
                 if v + items[i-1][1]*j > max_v:
                     max_v = v + items[i-1][1]*j
-            bounded[i][x] = (max_v, a)
+                    value = list(a)
+                    value[i-1] += j
+            bounded[i][x] = (max_v, value)
         return bounded[i][x]
 
     return best_helper(W, len(items))
