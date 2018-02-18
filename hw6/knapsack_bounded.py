@@ -4,8 +4,6 @@ def best(W, items):
     back = {}
     for i in range(0, len(items)):
         back[i] = {}
-        for j in range(0, W+1):
-            back[i][j] = 0
 
     bounded = {}
     for i in range(0, len(items)+1):
@@ -30,8 +28,9 @@ def best(W, items):
     def solution(x, i):
         if i < 0:
             return []
-        new_x = x - back[i][x] * items[i][0]
-        return solution(new_x, i-1) + [back[i][x]]
+        if x not in back[i]:
+            back[i][x] = 0
+        return solution(x - back[i][x] * items[i][0], i-1) + [back[i][x]]
 
     return best_helper(W, len(items)-1), solution(W, len(items)-1)
 
