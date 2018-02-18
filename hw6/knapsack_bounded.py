@@ -4,9 +4,9 @@ def best(W, items):
     bounded = {}
     for i in range(0, len(items)+1):
         bounded[i] = {}
-        bounded[i][0] = 0
+        bounded[i][0] = (0, [0]*len(items))
     for i in range(0, W+1):
-        bounded[0][i] = 0
+        bounded[0][i] = (0, [0]*len(items))
 
     def best_helper(x, i):
         if x not in bounded[i]:
@@ -14,10 +14,10 @@ def best(W, items):
             w = items[i-1][0]
             counter = min(items[i-1][2], x//w)
             for j in range(0, counter+1):
-                v = best_helper(x - j*w, i-1)
+                v, a = best_helper(x - j*w, i-1)
                 if v + items[i-1][1]*j > max_v:
                     max_v = v + items[i-1][1]*j
-            bounded[i][x] = max_v
+            bounded[i][x] = (max_v, a)
         return bounded[i][x]
 
     return best_helper(W, len(items))
