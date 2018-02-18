@@ -1,0 +1,30 @@
+
+def best(W, items):
+
+    bounded = {}
+    for i in range(0, len(items)+1):
+        bounded[i] = {}
+        bounded[i][0] = 0
+    for i in range(0, W+1):
+        bounded[0][i] = 0
+
+    def best_helper(x, i):
+        if x not in bounded[i]:
+            max_v = 0
+            w = items[i-1][0]
+            counter = min(items[i-1][2], x//w)
+            for j in range(0, counter+1):
+                v = best_helper(x - j*w, i-1)
+                if v + items[i-1][1]*j > max_v:
+                    max_v = v + items[i-1][1]*j
+            bounded[i][x] = max_v
+        return bounded[i][x]
+
+    return best_helper(W, len(items))
+
+if __name__ == '__main__':
+    print(best(3, [(2, 4, 2), (3, 5, 3)]))
+    print(best(3, [(1, 5, 2), (1, 5, 3)]))
+    print(best(3, [(1, 5, 1), (1, 5, 3)]))
+    print(best(20, [(1, 10, 6), (3, 15, 4), (2, 10, 3)]))
+    print(best(92, [(1, 6, 6), (6, 15, 7), (8, 9, 8), (2, 4, 7), (2, 20, 2)]))
