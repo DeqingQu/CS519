@@ -9,21 +9,21 @@ def best(W, items):
         bounded[0][i] = (0, [0]*len(items))
 
     def best_helper(x, i):
-        if x not in bounded[i]:
+        if x not in bounded[i+1]:
             max_v = 0
-            w = items[i-1][0]
-            counter = min(items[i-1][2], x//w)
+            w = items[i][0]
+            counter = min(items[i][2], x//w)
             value = [0] * len(items)
             for j in range(0, counter+1):
                 v, a = best_helper(x - j*w, i-1)
-                if v + items[i-1][1]*j > max_v:
-                    max_v = v + items[i-1][1]*j
+                if v + items[i][1]*j > max_v:
+                    max_v = v + items[i][1]*j
                     value = list(a)
-                    value[i-1] += j
-            bounded[i][x] = (max_v, value)
-        return bounded[i][x]
+                    value[i] += j
+            bounded[i+1][x] = (max_v, value)
+        return bounded[i+1][x]
 
-    return best_helper(W, len(items))
+    return best_helper(W, len(items)-1)
 
 if __name__ == '__main__':
     print(best(3, [(2, 4, 2), (3, 5, 3)]))
