@@ -1,6 +1,12 @@
 
 def best(W, items):
 
+    back = {}
+    for i in range(0, len(items)):
+        back[i] = {}
+        for j in range(0, W+1):
+            back[i][j] = 0
+
     bounded = {}
     for i in range(0, len(items)+1):
         bounded[i] = {}
@@ -17,10 +23,19 @@ def best(W, items):
                 v = best_helper(x - j*w, i-1)
                 if v + items[i][1]*j > max_v:
                     max_v = v + items[i][1]*j
+                    back[i][x] = j
             bounded[i+1][x] = max_v
         return bounded[i+1][x]
 
-    return best_helper(W, len(items)-1)
+    def solution(x, i):
+        if i < 0:
+            return []
+        new_x = x - back[i][x] * items[i][0]
+        return solution(new_x, i-1) + [back[i][x]]
+
+    return best_helper(W, len(items)-1), solution(W, len(items)-1)
+
+
 
 if __name__ == '__main__':
     print(best(3, [(2, 4, 2), (3, 5, 3)]))
