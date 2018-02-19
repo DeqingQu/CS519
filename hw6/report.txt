@@ -37,17 +37,21 @@ Bounded Knapsack:
 
 
 1.    Q: What are the time and space complexities?
-
+The time complexities are O(nW)
+The space complexities are O(W)
 
 2.    Q: What are the time and space complexities?
+The time complexities are O(sum(ci)*w)
+The space complexities are O(nw)
 
 
 Debriefing (required!): --------------------------
 
-0. What's your name?
-1. Approximately how many hours did you spend on this assignment?
-2. Would you rate it as easy, moderate, or difficult?
-3. Did you work on it mostly alone, or mostly with other people?
-4. How deeply do you feel you understand the material it covers (0%-100%)?
-5. Which part(s) of the course you like the most so far?
-6. Which part(s) of the course you dislike the most so far?
+0. Deqing Qu
+1. more than 6 hours
+2. Difficult
+3. I work it out alone and then help many other classmates to figure it out.
+4. 90%
+5. The DP is difficult and challenging. The matrix is very helpful to understand the bounded knapsack. I draw the matrix
+many times for myself and other classmates.
+6. Not yet.
