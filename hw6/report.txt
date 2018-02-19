@@ -1,9 +1,19 @@
 0. For each of the coding problems below:
 (a) Describe an exhaustive solution, and analyze complexity (might be exponential).
 Unbounded Knapsack:
+    The exhaustive solution is to enumerate all possible situations that match the requirements. For example, if we want to calculate best(58, [(5, 9), (9, 18), (6, 12)]),
+    we can calculate the maximum possible number max_num of each item ceil(W/wi), then loop each item max_num times to record all possible situations and compare all them
+    to get the final result.
+    The time complexity is (max(W/wi))^n
+
+Bounded Knapsack:
+    It is very similar to the unbounded knapsack, the only difference is max_num can't be more than the copies of the item.
+    The time complexity is (max(W/wi))^n
+
+(b) Describe a greedy solution, and analyze complexity.
 
 
-   (b) Describe a greedy solution, and analyze complexity.
+
    (c) Show a counterexample to the greedy solution.
    (d) Theoretically, is the top-down solution faster, or the bottom-one one faster?
    (e) Empirically, which one is faster? (Try some long random lists)
