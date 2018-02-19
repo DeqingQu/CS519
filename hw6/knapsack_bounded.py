@@ -34,8 +34,6 @@ def best(W, items):
 
     return best_helper(W, len(items)-1), solution(W, len(items)-1)
 
-
-
 if __name__ == '__main__':
     print(best(3, [(2, 4, 2), (3, 5, 3)]))
     print(best(3, [(1, 5, 2), (1, 5, 3)]))

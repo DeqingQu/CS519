@@ -1,5 +1,8 @@
 0. For each of the coding problems below:
-   (a) Describe an exhaustive solution, and analyze complexity (might be exponential).
+(a) Describe an exhaustive solution, and analyze complexity (might be exponential).
+Unbounded Knapsack:
+
+
    (b) Describe a greedy solution, and analyze complexity.
    (c) Show a counterexample to the greedy solution.
    (d) Theoretically, is the top-down solution faster, or the bottom-one one faster?
