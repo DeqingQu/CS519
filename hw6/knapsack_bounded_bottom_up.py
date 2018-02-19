@@ -3,13 +3,13 @@ def best(weight, item):
 
     back = [[0 for _ in range(weight+1)] for _ in range(len(item))]
 
-    for i, (wt, val, cp) in enumerate(item):
+    for i, (w, v, c) in enumerate(item):
         i += 1
-        for cap in range(1,weight+1):
-            for j in range(min(cp, cap//wt)+1):
-                if cap >= j*wt and opt[i][cap] < opt[i-1][cap-j*wt] + j * val:
-                    opt[i][cap] = opt[i-1][cap-j*wt] + j * val
-                    back[i-1][cap] = j
+        for x in range(1, weight+1):
+            for j in range(min(c, x//w)+1):
+                if x >= j*w and opt[i][x] < opt[i-1][x-j*w] + j * v:
+                    opt[i][x] = opt[i-1][x-j*w] + j * v
+                    back[i-1][x] = j
 
     def solution(w, i):
         if i < 0:
