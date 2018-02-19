@@ -35,6 +35,27 @@ Bounded Knapsack:
 (e) Empirically, which one is faster? (Try some long random lists)
     Empirically, the bottom-up solution is faster. I am weird about this and I don't know why.
 
+//  TEST CODE
+import random
+times = 200
+lst = []
+for _ in range(times):
+    lst.append((random.randint(1, 10), random.randint(5, 20), random.randint(1, 10)))
+Weight = random.randint(times*10, times*11)
+print("weight = ", Weight)
+
+from time import time
+t= time()
+a = best(Weight, lst)
+print("Top-Down Time : ", time() -t)
+t= time()
+a = best2(Weight, lst)
+print("Bottom-Up Time : ", time() -t)
+
+//  TEST RESULT
+weight =  2066
+Top-Down Time :  1.748213768005371
+Bottom-Up Time :  1.5445868968963623
 
 1.    Q: What are the time and space complexities?
 The time complexities are O(nW)
