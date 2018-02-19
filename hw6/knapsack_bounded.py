@@ -1,4 +1,5 @@
 
+#   Top-Down Method
 def best(W, items):
 
     back = {}
@@ -34,8 +35,7 @@ def best(W, items):
 
     return best_helper(W, len(items)-1), solution(W, len(items)-1)
 
-#   Bottom Up
-
+#   Bottom-Up Method
 def best2(weight, item):
     opt = [[0 for _ in range(weight+1)] for _ in range(len(item)+1)]  # initialize results matrix
 
