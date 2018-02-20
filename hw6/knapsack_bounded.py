@@ -6,38 +6,37 @@ def best(W, items):
     for i in range(0, len(items)):
         back[i] = {}
 
-    bounded = {}
+    opt = {}
     for i in range(0, len(items)+1):
-        bounded[i] = {}
-        bounded[i][0] = 0
-    for i in range(0, W+1):
-        bounded[0][i] = 0
+        opt[i] = {}
 
-    def best_helper(x, i):
-        if x not in bounded[i+1]:
+    def best_helper(i, x):
+        if i+1 == 0 or x == 0:
+            return 0
+        if x not in opt[i+1]:
             max_v = 0
             w = items[i][0]
             counter = min(items[i][2], x//w)
             for j in range(0, counter+1):
-                v = best_helper(x - j*w, i-1)
-                if v + items[i][1]*j > max_v:
-                    max_v = v + items[i][1]*j
+                v = best_helper(i-1, x - j*w) + items[i][1]*j
+                if v > max_v:
+                    max_v = v
                     back[i][x] = j
-            bounded[i+1][x] = max_v
-        return bounded[i+1][x]
+            opt[i+1][x] = max_v
+        return opt[i+1][x]
 
-    def solution(x, i):
+    def solution(i, x):
         if i < 0:
             return []
         if x not in back[i]:
             back[i][x] = 0
-        return solution(x - back[i][x] * items[i][0], i-1) + [back[i][x]]
+        return solution(i-1, x - back[i][x] * items[i][0]) + [back[i][x]]
 
-    return best_helper(W, len(items)-1), solution(W, len(items)-1)
+    return best_helper(len(items)-1, W), solution(len(items)-1, W)
 
 #   Bottom-Up Method
 def best2(weight, item):
-    opt = [[0 for _ in range(weight+1)] for _ in range(len(item)+1)]  # initialize results matrix
+    opt = [[0 for _ in range(weight+1)] for _ in range(len(item)+1)]
 
     back = [[0 for _ in range(weight+1)] for _ in range(len(item))]
 
@@ -72,22 +71,25 @@ print(best2(3, [(1, 5, 1), (1, 5, 3)]))
 print(best2(20, [(1, 10, 6), (3, 15, 4), (2, 10, 3)]))
 print(best2(92, [(1, 6, 6), (6, 15, 7), (8, 9, 8), (2, 4, 7), (2, 20, 2)]))
 
-import sys
-sys.setrecursionlimit(1000000)
+def performance_test():
+    import sys
+    sys.setrecursionlimit(1000000)
 
-import random
-times = 200
-lst = []
-for _ in range(times):
-    lst.append((random.randint(1, 10), random.randint(5, 20), random.randint(1, 10)))
-Weight = random.randint(times*10, times*11)
+    import random
+    times = 200
+    lst = []
+    for _ in range(times):
+        lst.append((random.randint(1, 10), random.randint(5, 20), random.randint(1, 10)))
+    Weight = random.randint(times*10, times*11)
 
-print("weight = ", Weight)
+    print("weight = ", Weight)
 
-from time import time
-t= time()
-a = best(Weight, lst)
-print("Top-Down Time : ", time() -t)
-t= time()
-a = best2(Weight, lst)
-print("Bottom-Up Time : ", time() -t)
+    from time import time
+    t= time()
+    a = best(Weight, lst)
+    print("Top-Down Time : ", time() -t)
+    t= time()
+    a = best2(Weight, lst)
+    print("Bottom-Up Time : ", time() -t)
+
+# performance_test()
