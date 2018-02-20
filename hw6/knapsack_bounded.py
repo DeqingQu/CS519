@@ -1,6 +1,6 @@
 
 #   Top-Down Method
-def best(W, items):
+def best0(W, items):
 
     back = {}
     for i in range(0, len(items)):
@@ -35,7 +35,7 @@ def best(W, items):
     return best_helper(len(items)-1, W), solution(len(items)-1, W)
 
 #   Bottom-Up Method
-def best2(weight, item):
+def best(weight, item):
     opt = [[0 for _ in range(weight+1)] for _ in range(len(item)+1)]
 
     back = [[0 for _ in range(weight+1)] for _ in range(len(item))]
@@ -58,18 +58,18 @@ def best2(weight, item):
 
 #   Top-down test
 print("Top-down test")
+print(best0(3, [(2, 4, 2), (3, 5, 3)]))
+print(best0(3, [(1, 5, 2), (1, 5, 3)]))
+print(best0(3, [(1, 5, 1), (1, 5, 3)]))
+print(best0(20, [(1, 10, 6), (3, 15, 4), (2, 10, 3)]))
+print(best0(92, [(1, 6, 6), (6, 15, 7), (8, 9, 8), (2, 4, 7), (2, 20, 2)]))
+#   Bottom-up test
+print("Bottom-up test")
 print(best(3, [(2, 4, 2), (3, 5, 3)]))
 print(best(3, [(1, 5, 2), (1, 5, 3)]))
 print(best(3, [(1, 5, 1), (1, 5, 3)]))
 print(best(20, [(1, 10, 6), (3, 15, 4), (2, 10, 3)]))
 print(best(92, [(1, 6, 6), (6, 15, 7), (8, 9, 8), (2, 4, 7), (2, 20, 2)]))
-#   Bottom-up test
-print("Bottom-up test")
-print(best2(3, [(2, 4, 2), (3, 5, 3)]))
-print(best2(3, [(1, 5, 2), (1, 5, 3)]))
-print(best2(3, [(1, 5, 1), (1, 5, 3)]))
-print(best2(20, [(1, 10, 6), (3, 15, 4), (2, 10, 3)]))
-print(best2(92, [(1, 6, 6), (6, 15, 7), (8, 9, 8), (2, 4, 7), (2, 20, 2)]))
 
 def performance_test():
     import sys
@@ -86,10 +86,10 @@ def performance_test():
 
     from time import time
     t= time()
-    a = best(Weight, lst)
+    a = best0(Weight, lst)
     print("Top-Down Time : ", time() -t)
     t= time()
-    a = best2(Weight, lst)
+    a = best(Weight, lst)
     print("Bottom-Up Time : ", time() -t)
 
 performance_test()
