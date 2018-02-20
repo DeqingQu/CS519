@@ -92,4 +92,4 @@ def performance_test():
     a = best2(Weight, lst)
     print("Bottom-Up Time : ", time() -t)
 
-# performance_test()
+performance_test()
