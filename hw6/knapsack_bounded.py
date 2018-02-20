@@ -15,12 +15,12 @@ def best(W, items):
             return 0
         if x not in opt[i+1]:
             max_v = 0
-            w = items[i][0]
-            counter = min(items[i][2], x//w)
+            w, v, c = items[i]
+            counter = min(c, x//w)
             for j in range(0, counter+1):
-                v = best_helper(i-1, x - j*w) + items[i][1]*j
-                if v > max_v:
-                    max_v = v
+                val = best_helper(i-1, x - j*w) + v*j
+                if val > max_v:
+                    max_v = val
                     back[i][x] = j
             opt[i+1][x] = max_v
         return opt[i+1][x]
