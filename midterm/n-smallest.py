@@ -1,7 +1,9 @@
 import heapq
 from random import *
+from collections import defaultdict
 
 def nsmallest(m):
+    back = defaultdict(int)
     H = []
     n = len(m)
     for x in range(n):
@@ -10,10 +12,13 @@ def nsmallest(m):
     for _ in range(n-1):
         v, x, i, j = heapq.heappop(H)
         if i+1 < n:
-            heapq.heappush(H, (m[x][i+1][j], x, i+1, j))
+            if back[x,i+1,j] == 0:
+                heapq.heappush(H, (m[x][i+1][j], x, i+1, j))
+                back[x, i+1, j] = 1
         if j+1 < n:
-            heapq.heappush(H, (m[x][i][j+1], x, i, j+1))
-
+            if back[x,i,j+1] == 0:
+                heapq.heappush(H, (m[x][i][j+1], x, i, j+1))
+                back[x, i, j+1] = 1
     return heapq.heappop(H)[0]
 
 
