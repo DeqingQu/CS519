@@ -1,6 +1,6 @@
 import heapq
 from random import *
-from collections import defaultdict
+from time import time
 
 def nsmallest(m):
     H = []
@@ -92,6 +92,12 @@ if __name__ == '__main__':
     print("naive: ", naiveNsmallest(testcase2))
     print("smart: ", nsmallest(testcase3))
     print("naive: ", naiveNsmallest(testcase3))
-    print("smart: ", nsmallest(testcase4))
-    print("naive: ", naiveNsmallest(testcase4))
+    # print("smart: ", nsmallest(testcase4))
+    # print("naive: ", naiveNsmallest(testcase4))
 
+    t= time()
+    nsmallest(testcase4)
+    print("heap + baby Dijkstra : ", time() -t)
+    t= time()
+    naiveNsmallest(testcase4)
+    print("naive way : ", time() -t)
