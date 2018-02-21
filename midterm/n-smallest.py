@@ -58,6 +58,24 @@ def print3DMatrix(m):
     print("]")
     print("------")
 
+def createRandomMatrix(n):
+    m = [[[0 for _ in range(n)] for _ in range(n)] for _ in range(n)]
+    for x in range(n):
+        for i in range(n):
+            for j in range(n):
+                if i == 0 and j == 0:
+                    m[x][i][j] = randint(1, 10)
+                    continue
+                if j == 0:
+                    m[x][i][j] = m[x][i-1][j] + randint(1, 10)
+                    continue
+                if i == 0:
+                    m[x][i][j] = m[x][i][j-1] + randint(1, 10)
+                    continue
+                m[x][i][j] = max(m[x][i-1][j], m[x][i][j-1]) + randint(1, 10)
+    return m
+
+
 if __name__ == '__main__':
     testcase1 = [[[1,2], [3,4]], [[2,3], [4,5]]]
     testcase2 = [[[1,4,5], [4,5,6], [5,6,7]], [[1,3,4], [3,4,5], [4,5,6]], [[1,2,3], [2,3,4], [3,4,5]]]
@@ -70,9 +88,15 @@ if __name__ == '__main__':
     # print3DMatrix(testcase2)
     # print3DMatrix(testcase3)
 
+    testcase4 = createRandomMatrix(3)
+    print3DMatrix(testcase4)
+
     print("smart: ", nsmallest(testcase1))
     print("naive: ", naiveNsmallest(testcase1))
     print("smart: ", nsmallest(testcase2))
     print("naive: ", naiveNsmallest(testcase2))
     print("smart: ", nsmallest(testcase3))
     print("naive: ", naiveNsmallest(testcase3))
+    print("smart: ", nsmallest(testcase4))
+    print("naive: ", naiveNsmallest(testcase4))
+
