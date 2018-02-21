@@ -3,7 +3,6 @@ from random import *
 from collections import defaultdict
 
 def nsmallest(m):
-    back = defaultdict(int)
     H = []
     n = len(m)
     for x in range(n):
@@ -12,13 +11,9 @@ def nsmallest(m):
     for _ in range(n-1):
         v, x, i, j = heapq.heappop(H)
         if i+1 < n:
-            if back[x,i+1,j] == 0:
-                heapq.heappush(H, (m[x][i+1][j], x, i+1, j))
-                back[x, i+1, j] = 1
+            if (m[x][i+1][j], x, i+1, j) not in H: heapq.heappush(H, (m[x][i+1][j], x, i+1, j))
         if j+1 < n:
-            if back[x,i,j+1] == 0:
-                heapq.heappush(H, (m[x][i][j+1], x, i, j+1))
-                back[x, i, j+1] = 1
+            if (m[x][i][j+1], x, i, j+1) not in H: heapq.heappush(H, (m[x][i][j+1], x, i, j+1))
     return heapq.heappop(H)[0]
 
 
@@ -88,8 +83,8 @@ if __name__ == '__main__':
     # print3DMatrix(testcase2)
     # print3DMatrix(testcase3)
 
-    testcase4 = createRandomMatrix(3)
-    print3DMatrix(testcase4)
+    testcase4 = createRandomMatrix(100)
+    # print3DMatrix(testcase4)
 
     print("smart: ", nsmallest(testcase1))
     print("naive: ", naiveNsmallest(testcase1))
