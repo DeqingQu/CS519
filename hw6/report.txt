@@ -31,6 +31,8 @@ Bounded Knapsack:
 (d) Theoretically, is the top-down solution faster, or the bottom-up one faster?
     I believe the top-down solution should be faster. The top-down solution has more time expense on stack for recursion, but it
     doesn't need to go through all opt[i][x].
+    The bottom-up is faster, because it is implemented based on loops and there is no recursion in it. The top-down is more readable,
+    but is implemented based on recursion. The top-down solution has more time expense on stack for recursion.
 
 (e) Empirically, which one is faster? (Try some long random lists)
     Empirically, the bottom-up solution performs slightly faster than the top-down solution. Sometimes the top-down one is faster,
