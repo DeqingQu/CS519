@@ -24,9 +24,9 @@ Bounded Knapsack:
 
 (c) Show a counterexample to the greedy solution.
     I take unbounded knapsack as example, bounded knapsack is the same actually.
-    best(7, [(2, 4), (3, 6.5)])
-    For greed solution, the result is (13, [0, 2]). It will take as many as the second item possible, because 6.5/3 > 4/2.
-    The correct answer is (14.5, [2, 1]).
+    best(7, [(2, 4), (3, 7)])
+    For greed solution, the result is (14, [0, 2]). It will take as many as the second item possible, because 6.5/3 > 4/2.
+    The correct answer is (15, [2, 1]).
 
 (d) Theoretically, is the top-down solution faster, or the bottom-up one faster?
     I believe the top-down solution should be faster. The top-down solution has more time expense on stack for recursion, but it
