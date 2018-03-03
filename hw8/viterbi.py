@@ -1,3 +1,4 @@
+from collections import defaultdict
 
 def order(n, edges):
     topol_order = []
@@ -33,19 +34,23 @@ def longest(n, edges):
     in_degree = [0]*n
     dilg = [0]*n
     back = [0]*n
-    for (v, u) in edges:
-        in_degree[u] += 1
+
+    graph = defaultdict(list)
+
+    for (u, v) in edges:
+        in_degree[v] += 1
+        graph[v].append(u)
 
     # topol_order = order(n, edges)
 
     max_dilg, max_v = 0, 0
     for i in range(n):
         if in_degree[i] != 0:
-            for (v, u) in edges:
-                if u == i:
-                    if dilg[i] < dilg[v] + 1:
-                        dilg[i] = dilg[v] + 1
-                        back[i] = v
+            adjacents = graph[i]
+            for v in adjacents:
+                if dilg[i] < dilg[v] + 1:
+                    dilg[i] = dilg[v] + 1
+                    back[i] = v
             if dilg[i] > max_dilg:
                 max_dilg = dilg[i]
                 max_v = i
