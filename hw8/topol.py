@@ -1,8 +1,14 @@
+from collections import defaultdict
+
 def order(n, edges):
     topol_order = []
     in_degree = [0]*n
-    for i in range(len(edges)):
-        in_degree[edges[i][1]] += 1
+    graph = defaultdict(list)
+
+    for (u, v) in edges:
+        in_degree[v] += 1
+        graph[u].append(v)
+
     #  initialize a queue for in_degree == 0
     queue = []
     op = 0
@@ -10,20 +16,19 @@ def order(n, edges):
         if in_degree[i] == 0:
             queue.append(i)
     #   loop while queue is not empty
-    count = 0
+
     while op != len(queue):
-        source = queue[op]
-        topol_order.append(source)
+        u = queue[op]
+        topol_order.append(u)
         op += 1
 
-        for (u, v) in edges:
-            if u == source:
+        adjacents = graph[u]
+        for v in adjacents:
                 in_degree[v] -= 1
                 if in_degree[v] == 0:
                     queue.append(v)
-        count += 1
 
-    if count != n:
+    if len(topol_order) != n:
         return None
     return topol_order
 
