@@ -35,8 +35,8 @@ def longest(n, edges):
     back = [0]*n
     for (v, u) in edges:
         in_degree[u] += 1
-    topol_order = order(n, edges)
-    for i in topol_order:
+    # topol_order = order(n, edges)
+    for i in range(n):
         if in_degree[i] != 0:
             for (v, u) in edges:
                 if u == i:
@@ -56,6 +56,7 @@ def longest(n, edges):
         path[:0] = [v]
 
     return max_dilg, path
+
 
 if __name__ == '__main__':
     print(longest(8, [(0, 2), (1, 2), (2, 3), (2, 4), (3, 4), (3, 5), (4, 5), (5, 6), (5, 7)]))
