@@ -9,3 +9,21 @@ For the naive exhaustive algorithm, it can list all permutations of all cities a
 Time complexity = O(n!)
 Space complexity = O(n!)
 
+1. What are the time and space complexities?
+Time complexity = O(n^2). In the outer loop, all elements are looped. In the inner loop, it looks for any element is less than the current element.
+Space complexity = O(n)
+
+2.    (a) did you realize that bottom-up implementations of DP use (implicit) topological orderings?
+       e.g., what is the topological ordering in your (or my) bottom-up bounded knapsack code?
+Yes. The topological ordering is from the top level in the matrix to the down level in the matrix. It looks like the following.
+[ opt[0][0], ..., opt[0][x], opt[1][0], ..., opt[1][x], ..., opt[i][0], ..., opt[i][x] ]
+
+   (b) what about top-down implementations? what order do they use to traverse the graph?
+The top-down implementations also use topological orderings. It use the reversed topological ordering to traverse the graph.
+
+   (c) does that suggest there is a top-down solution for topological sort as well?
+Yes. The topological sort can be implemented in DFS. We can use a temporary stack to record the result. We start from a vertex,
+first recursively call topological sorting for all its adjacent vertices, then push it to the stack. The vertex is pushed to the stack
+only when all its adjacent vertices are already in stack. Finally pop all vertices in stack and get the topological ordering.
+
+
