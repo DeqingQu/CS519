@@ -1,0 +1,11 @@
+0. (a) Describe a greedy algorithm for LIS and show a counter example.
+Find the longest increasing sequence for the string without the last letter lis(s[:-1]). If the last letter of the original string is
+more than the last letter of the result, the final result is lis(s) = lis(s[:-1]) + s[-1]. If not, the result is lis(s) = lis(s[:-1]).
+The base case is lis(s) = 1, if len(s) == 1.
+Counter Example: lis("aebccg") = "aeg" for the greedy algorithm. But the correct answer should be "abcg"
+
+   (b) Describe an exhaustive algorithm for TSP and analyze complexity.
+For the naive exhaustive algorithm, it can list all permutations of all cities and find the shortest path of all permutation.
+Time complexity = O(n!)
+Space complexity = O(n!)
+
