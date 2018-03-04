@@ -27,3 +27,13 @@ first recursively call topological sorting for all its adjacent vertices, then p
 only when all its adjacent vertices are already in stack. Finally pop all vertices in stack and get the topological ordering.
 
 
+Debriefing (required!): --------------------------
+
+0. Deqing Qu
+1. 6 hours
+2. Difficult
+3. I did it alone and I google for solutions for the questions.
+4. 85% - 90%
+5. Homework is difficult and challenging. There are many solutions for each question, like top-down and bottom-up. The time
+and space performance of each solution is different and it is not an easy thing to handle all of them.
+6. Not yet.
