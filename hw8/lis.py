@@ -1,3 +1,4 @@
+# O(n^2 solution)
 def lis(s):
     l, arr = len(s), []
     arr.append((0, s[0]))
@@ -11,6 +12,10 @@ def lis(s):
         if max_index == -1: arr.append((0, s[i]))
         else: arr.append((max_lis + 1,  arr[max_index][1] + s[i]))
     return arr[l-1][1]
+
+# O(nlogn solution)
+def lis2(s):
+    return s
 
 if __name__ == '__main__':
     print(lis("aebbcg"))
