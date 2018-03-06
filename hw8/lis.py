@@ -1,3 +1,5 @@
+import math
+
 # O(n^2 solution)
 def lis(s):
     l, arr = len(s), []
@@ -13,10 +15,44 @@ def lis(s):
         else: arr.append((max_lis + 1,  arr[max_index][1] + s[i]))
     return arr[l-1][1]
 
+def lis_num(s):
+    l, arr = len(s), []
+    arr.append((0, [s[0]]))
+    for i in range(1, l):
+        max_lis = -1
+        max_index = -1
+        for j in range(i):
+            if s[j] < s[i] and arr[j][0] > max_lis:
+                max_lis = arr[j][0]
+                max_index = j
+        if max_index == -1: arr.append((0, s[i]))
+        else: arr.append((max_lis + 1,  arr[max_index][1] + [s[i]]))
+    return arr[l-1][1]
+
+def binary_search(a, x):
+    if a == []:
+        return 0
+    i = len(a) // 2
+    if a[i] == x:
+        return i
+    elif a[i] > x:
+        return binary_search(a[:i], x)
+    return binary_search(a[i+1:], x) + i + 1
+
 # O(nlogn solution)
-def lis2(s):
-    return s
+def lis_num_2(s):
+    a = []
+    for n in s:
+        if a == [] or n > a[len(a)-1]:
+            a.append(n)
+        else:
+            i = binary_search(a, n)
+            a[i] = n
+    return a
 
 if __name__ == '__main__':
     print(lis("aebbcg"))
     print(lis("zyx"))
+    print(lis_num([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]))
+    print(binary_search([2,5,8], 3))
+    print(lis_num_2([2, 6, 3, 4, 1, 2, 9, 5, 8]))
