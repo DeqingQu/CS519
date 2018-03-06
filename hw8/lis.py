@@ -42,13 +42,17 @@ def binary_search(a, x):
 # O(nlogn solution)
 def lis_num_2(s):
     a = []
-    for n in s:
+    idx = []
+    for i, n in enumerate(s):
         if a == [] or n > a[len(a)-1]:
             a.append(n)
+            idx.append(i)
         else:
-            i = binary_search(a, n)
-            a[i] = n
-    return a
+            bi = binary_search(a, n)
+            a[bi] = n
+            idx[bi] = i
+
+    return a, idx
 
 if __name__ == '__main__':
     print(lis("aebbcg"))
