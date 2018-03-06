@@ -52,11 +52,31 @@ def lis_num_2(s):
             a[bi] = n
             idx[bi] = i
 
-    return a, idx
+    i = len(s)-1
+    j = len(a)-1
+    res = []
+    while (i >= 0):
+        if (s[i] >= a[j] and j == len(a)-1) or (s[i] >= a[j] and s[i] <= a[j+1]):
+            res[:0] = [s[i]]
+            j -= 1
+        i -= 1
+
+    return res
+
+def performance_test():
+
+    from time import time
+    t = time()
+    lis_num([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15])
+    print("n^2 Time : ", time() - t)
+    t = time()
+    lis_num_2([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15])
+    print("nlogn Time : ", time() - t)
 
 if __name__ == '__main__':
     print(lis("aebbcg"))
     print(lis("zyx"))
     print(lis_num([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]))
-    print(binary_search([2,5,8], 3))
     print(lis_num_2([2, 6, 3, 4, 1, 2, 9, 5, 8]))
+    print(lis_num_2([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]))
+    performance_test()
