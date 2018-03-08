@@ -36,7 +36,7 @@ def shortest2(n, edges):
 
 
 def shortest(n, edges):
-    graph = defaultdict(defaultdict)
+    graph = defaultdict(dict)
     for (u, v, w) in edges:
         graph[u][v] = w
         graph[v][u] = w
