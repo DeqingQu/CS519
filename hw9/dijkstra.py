@@ -3,12 +3,10 @@ from heapdict import heapdict
 
 def shortest(n, edges):
 
-    graph = defaultdict(defaultdict)
+    graph = defaultdict(list)
     for (u, v, w) in edges:
-        graph[u][v] = w
-        graph[v][u] = w
-        # graph[u].append((v, w))
-        # graph[v].append((u, w))
+        graph[u].append((v, w))
+        graph[v].append((u, w))
 
     hd = heapdict()
     for i in range(n):
@@ -21,7 +19,7 @@ def shortest(n, edges):
         v, w = hd.popitem()
         length = w
         if v == n-1: break
-        for vv, ww in graph[v].items():
+        for (vv, ww) in graph[v]:
             if vv in hd:
                 if hd[vv] > w + ww:
                     hd[vv] = w + ww
