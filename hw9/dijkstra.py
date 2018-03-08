@@ -1,18 +1,19 @@
 from collections import defaultdict
 from heapdict import heapdict
+from time import time
 
-def shortest(n, edges):
+
+def shortest2(n, edges):
     graph = defaultdict(list)
     for (u, v, w) in edges:
         graph[u].append((v, w))
-        # graph[v].append((u, w))
+        graph[v].append((u, w))
 
     hd = heapdict()
     for i in range(n):
         hd[i] = float("inf")
     hd[0] = 0
 
-    length = 0
     back = defaultdict(int)
     while True:
         v, w = hd.popitem()
@@ -33,27 +34,27 @@ def shortest(n, edges):
 
     return length, path
 
-def shortest2(n, edges):
-    graph = defaultdict(list)
+
+def shortest(n, edges):
+    graph = defaultdict(defaultdict)
     for (u, v, w) in edges:
-        graph[u].append((v, w))
-        # graph[v].append((u, w))
+        graph[u][v] = w
+        graph[v][u] = w
 
     hd = heapdict()
+    for i in range(n):
+        hd[i] = float("inf")
     hd[0] = 0
 
-    trash = []
     back = defaultdict(int)
     while True:
         v, w = hd.popitem()
-        trash.append(v)
         length = w
         if v == n-1: break
-        for (vv, ww) in graph[v]:
-            if vv not in trash:
-                if vv not in hd or hd[vv] > w + ww:
-                    hd[vv] = w + ww
-                    back[vv] = v
+        for vv, ww in graph[v].items():
+            if vv in hd and hd[vv] > w + ww:
+                hd[vv] = w + ww
+                back[vv] = v
 
     #  backtrack the shortest path
     path, d = [], n-1
@@ -65,10 +66,8 @@ def shortest2(n, edges):
 
     return length, path
 
-def shortest3(n, edges):
-    graph = defaultdict(list)
-    for u,v,w in edges:
-        graph[u].append((v,w))
+
+
 
 if __name__ == '__main__':
     print(shortest2(4, [(0, 1, 1), (0, 2, 5), (1, 2, 1), (2, 3, 2), (1, 3, 6)]))
@@ -81,15 +80,18 @@ if __name__ == '__main__':
         random.seed(seed);
         return [tuple(sorted(random.sample(range(k), 2)) + [random.randint(5, 10)]) for _ in range(length)]
 
+    tuples = generate_seq(5, 5, 1)
+    # print(tuples)
+    # print(shortest2(5, tuples))
+
     def performance_test():
         tuples_1 = generate_seq(5000, 50000, 1)
         tuples_2 = generate_seq(5000, 50000, 4)
-        from time import time
         t = time()
         shortest(5000, tuples_1[:50000])
         print("test case 1 : ", time() - t)
         t = time()
-        shortest2(5000, tuples_1[:50000])
+        shortest(5000, tuples_2[:50000])
         print("test case 2 : ", time() - t)
 
     performance_test()
