@@ -3,7 +3,7 @@ from heapdict import heapdict
 from time import time
 
 #   Total Time: 0.968 s
-def shortest1(n, edges):
+def shortest(n, edges):
     graph = defaultdict(dict)
     for (u, v, w) in edges:
         graph[u][v] = w
@@ -36,8 +36,9 @@ def shortest1(n, edges):
 
     return length, path
 
-
-def shortest(n, edges):
+#   initialize the hd to float('inf') -- time consuming
+#   Total Time: 1.606 s
+def shortest1(n, edges):
     graph = defaultdict(dict)
     for (u, v, w) in edges:
         graph[u][v] = w
@@ -81,8 +82,8 @@ if __name__ == '__main__':
         return [tuple(sorted(random.sample(range(k), 2)) + [random.randint(5, 10)]) for _ in range(length)]
 
     tuples = generate_seq(5, 5, 1)
-    # print(tuples)
-    # print(shortest2(5, tuples))
+    print(tuples)
+    print(shortest(5, tuples))
 
     def performance_test():
         tuples_1 = generate_seq(5000, 50000, 1)
