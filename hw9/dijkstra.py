@@ -20,11 +20,10 @@ def shortest(n, edges):
         length = w
         if v == n-1: break
         for (vv, ww) in graph[v]:
-            if vv in hd:
-                if hd[vv] > w + ww:
-                    hd[vv] = w + ww
-                    back[vv] = v
-                    
+            if vv in hd and hd[vv] > w + ww:
+                hd[vv] = w + ww
+                back[vv] = v
+
     #  backtrack the shortest path
     path, d = [], n-1
     path.append(n-1)
@@ -47,7 +46,15 @@ if __name__ == '__main__':
         random.seed(seed);
         return [tuple(sorted(random.sample(range(k), 2)) + [random.randint(5, 10)]) for _ in range(length)]
 
+    def performance_test():
+        tuples_1 = generate_seq(5000, 50000, 1)
+        tuples_2 = generate_seq(5000, 50000, 4)
+        from time import time
+        t = time()
+        shortest(5000, tuples_1[:50000])
+        print("test case 1 : ", time() - t)
+        t = time()
+        shortest(5000, tuples_2[:50000])
+        print("test case 2 : ", time() - t)
 
-    dense_tuples = generate_seq(5, 10, 1)
-    print(dense_tuples)
-    print(shortest(5, dense_tuples[:10]))
+    performance_test()
