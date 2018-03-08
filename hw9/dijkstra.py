@@ -2,8 +2,8 @@ from collections import defaultdict
 from heapdict import heapdict
 from time import time
 
-
-def shortest(n, edges):
+#   Total Time: 0.968 s
+def shortest1(n, edges):
     graph = defaultdict(dict)
     for (u, v, w) in edges:
         graph[u][v] = w
@@ -25,6 +25,39 @@ def shortest(n, edges):
                 if u not in hd or (u in hd and hd[u] > w + cost):
                     hd[u] = w + cost
                     back[u] = v
+
+    #  backtrack the shortest path
+    path, d = [], n-1
+    path.append(n-1)
+    path[:0] = [back[d]]
+    while back[d] != 0:
+        d = back[d]
+        path[:0] = [back[d]]
+
+    return length, path
+
+
+def shortest(n, edges):
+    graph = defaultdict(dict)
+    for (u, v, w) in edges:
+        graph[u][v] = w
+        graph[v][u] = w
+
+    hd = heapdict()
+    for i in range(n):
+        hd[i] = float("inf")
+    hd[0] = 0
+    back = defaultdict(int)
+
+    while True:
+        v, w = hd.popitem()
+        length = w
+        if v == n-1: break
+
+        for u, cost in graph[v].items():
+            if u in hd and hd[u] > w + cost:
+                hd[u] = w + cost
+                back[u] = v
 
     #  backtrack the shortest path
     path, d = [], n-1
