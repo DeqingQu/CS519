@@ -3,38 +3,6 @@ from heapdict import heapdict
 from time import time
 
 
-def shortest2(n, edges):
-    graph = defaultdict(list)
-    for (u, v, w) in edges:
-        graph[u].append((v, w))
-        graph[v].append((u, w))
-
-    hd = heapdict()
-    for i in range(n):
-        hd[i] = float("inf")
-    hd[0] = 0
-
-    back = defaultdict(int)
-    while True:
-        v, w = hd.popitem()
-        length = w
-        if v == n-1: break
-        for (vv, ww) in graph[v]:
-            if vv in hd and hd[vv] > w + ww:
-                hd[vv] = w + ww
-                back[vv] = v
-
-    #  backtrack the shortest path
-    path, d = [], n-1
-    path.append(n-1)
-    path[:0] = [back[d]]
-    while back[d] != 0:
-        d = back[d]
-        path[:0] = [back[d]]
-
-    return length, path
-
-
 def shortest(n, edges):
     graph = defaultdict(dict)
     for (u, v, w) in edges:
@@ -52,11 +20,11 @@ def shortest(n, edges):
         visited.add(v)
         if v == n-1: break
 
-        for vv, ww in graph[v].items():
-            if vv not in visited:
-                if vv not in hd or (vv in hd and hd[vv] > w + ww):
-                    hd[vv] = w + ww
-                    back[vv] = v
+        for u, cost in graph[v].items():
+            if u not in visited:
+                if u not in hd or (u in hd and hd[u] > w + cost):
+                    hd[u] = w + cost
+                    back[u] = v
 
     #  backtrack the shortest path
     path, d = [], n-1
@@ -67,7 +35,6 @@ def shortest(n, edges):
         path[:0] = [back[d]]
 
     return length, path
-
 
 if __name__ == '__main__':
     print(shortest(4, [(0, 1, 1), (0, 2, 5), (1, 2, 1), (2, 3, 2), (1, 3, 6)]))
