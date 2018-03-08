@@ -9,24 +9,22 @@ def shortest(n, edges):
         graph[v].append((u, w))
 
     hd = heapdict()
-    # for i in range(n):
-        # hd[i] = float("inf")
+    for i in range(n):
+        hd[i] = float("inf")
     hd[0] = 0
 
     length = 0
     back = defaultdict(int)
-    trash = []
     while len(hd) != 0:
         v, w = hd.popitem()
-        trash.append(v)
         length = w
         if v == n-1: break
         for (vv, ww) in graph[v]:
-            if vv not in trash:
-                if vv not in hd or hd[vv] > w + ww:
+            if vv in hd:
+                if hd[vv] > w + ww:
                     hd[vv] = w + ww
                     back[vv] = v
-
+                    
     #  backtrack the shortest path
     path, d = [], n-1
     path.append(n-1)
