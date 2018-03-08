@@ -42,19 +42,21 @@ def shortest(n, edges):
         graph[v][u] = w
 
     hd = heapdict()
-    for i in range(n):
-        hd[i] = float("inf")
     hd[0] = 0
-
+    visited = set()
     back = defaultdict(int)
+
     while True:
         v, w = hd.popitem()
         length = w
+        visited.add(v)
         if v == n-1: break
+
         for vv, ww in graph[v].items():
-            if vv in hd and hd[vv] > w + ww:
-                hd[vv] = w + ww
-                back[vv] = v
+            if vv not in visited:
+                if vv not in hd or (vv in hd and hd[vv] > w + ww):
+                    hd[vv] = w + ww
+                    back[vv] = v
 
     #  backtrack the shortest path
     path, d = [], n-1
@@ -67,12 +69,10 @@ def shortest(n, edges):
     return length, path
 
 
-
-
 if __name__ == '__main__':
-    print(shortest2(4, [(0, 1, 1), (0, 2, 5), (1, 2, 1), (2, 3, 2), (1, 3, 6)]))
-    print(shortest2(5, [(0, 1, 3), (0, 2, 1), (1, 3, 2), (2, 4, 1)]))
-    print(shortest2(4, [(0, 1, 24), (0, 2, 3), (0, 3, 20), (2, 3, 12)]))
+    print(shortest(4, [(0, 1, 1), (0, 2, 5), (1, 2, 1), (2, 3, 2), (1, 3, 6)]))
+    print(shortest(5, [(0, 1, 3), (0, 2, 1), (1, 3, 2), (2, 4, 1)]))
+    print(shortest(4, [(0, 1, 24), (0, 2, 3), (0, 3, 20), (2, 3, 12)]))
 
 
     def generate_seq(k, length, seed):
