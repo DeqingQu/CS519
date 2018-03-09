@@ -1,0 +1,20 @@
+1. Dijkstra
+                        heapdict            hash            heap
+Time complexity:       O((V+E)logV)       O(V^2+E)       O((V+E)logE)
+Space complexity:       O(V+E)             O(V+E)          O(V+E)
+
+2. TSP
+Space complexity: 2^n*n
+Time complextiy: 2^n*n
+
+Debriefing (required!): --------------------------
+
+0. Deqing Qu
+1. 8 hours
+2. difficult
+3. I worked on it mostly alone
+4. 80%
+5. I made several mistakes when I worked on Dijkstra and can't pass all test cases at first. Dijkstra is not as easy as
+previous homework and you have to choose the right data structure to store data, or you will have a time limited exceeded
+error. Eventually, I use a set to store the visited vertices instead of an array and all test cases are passed.
+6. nothing yet
