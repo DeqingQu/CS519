@@ -81,9 +81,9 @@ if __name__ == '__main__':
         random.seed(seed);
         return [tuple(sorted(random.sample(range(k), 2)) + [random.randint(5, 10)]) for _ in range(length)]
 
-    tuples = generate_seq(10, 10, 1)
+    tuples = generate_seq(12, 12, 1)
     print(tuples)
-    print(shortest(10, tuples))
+    print(shortest(12, tuples))
 
     def performance_test():
         tuples_1 = generate_seq(5000, 50000, 1)
