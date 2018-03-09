@@ -34,7 +34,7 @@ def shortest(n, edges):
         d = back[d]
         path[:0] = [back[d]]
 
-    return length, path
+    return [length, path]
 
 #   initialize the hd to float('inf') -- time consuming
 #   Total Time: 1.606 s
@@ -81,9 +81,9 @@ if __name__ == '__main__':
         random.seed(seed);
         return [tuple(sorted(random.sample(range(k), 2)) + [random.randint(5, 10)]) for _ in range(length)]
 
-    tuples = generate_seq(5, 5, 1)
+    tuples = generate_seq(10, 10, 1)
     print(tuples)
-    print(shortest(5, tuples))
+    print(shortest(10, tuples))
 
     def performance_test():
         tuples_1 = generate_seq(5000, 50000, 1)
@@ -95,4 +95,4 @@ if __name__ == '__main__':
         shortest(5000, tuples_2[:50000])
         print("test case 2 : ", time() - t)
 
-    performance_test()
+    # performance_test()

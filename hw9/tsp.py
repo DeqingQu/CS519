@@ -1,3 +1,10 @@
+
+
+def tsp_helper(visited, v):
+    if visited == {0} and v == 0:
+        return 0
+
+
 def tsp(n, edges):
     return n, edges
 
