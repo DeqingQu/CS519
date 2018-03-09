@@ -29,13 +29,14 @@ def tsp(n, edges):
             graph[-1][u] = w
 
     opt = defaultdict(dict)
+    back = defaultdict(dict)
 
     def tsp_helper(visited, i):
+        if visited == {0} and i == 0:
+            return 0
         bit = trans_bit(n, visited)
         if i in opt[bit]:
             return opt[bit][i]
-        if visited == {0} and i == 0:
-            return 0
         min_cost = float("inf")
         for v in visited:
             if v != i and v in graph[i]:
@@ -44,6 +45,7 @@ def tsp(n, edges):
                 temp = tsp_helper(new_visited, v)
                 if temp is not None and min_cost > temp + graph[v][i]:
                     min_cost = temp + graph[v][i]
+                    back[bit][i] = v
 
         if min_cost == float("inf"):
             opt[bit][i] = None
@@ -51,12 +53,22 @@ def tsp(n, edges):
             opt[bit][i] = min_cost
         return opt[bit][i]
 
+    def solution(visited, i):
+        if visited == {0} and i == 0:
+            return [0]
+        bit = trans_bit(n, visited)
+        vertex = back[bit][i]
+        new_visited = copy.deepcopy(visited)
+        new_visited.remove(i)
+        if i == -1: i = 0
+        return solution(new_visited, vertex) + [i]
+
     vertices = set()
     for i in range(n):
         vertices.add(i)
     vertices.add(-1)
 
-    return tsp_helper(vertices, -1)
+    return tsp_helper(vertices, -1), solution(vertices, -1)
 
 if __name__ == '__main__':
 
@@ -72,3 +84,4 @@ if __name__ == '__main__':
                 (7,8,15),(7,9,25),(7,10,13),
                 (8,9,35),(8,10,18),
                 (9,10,38)]))
+    # print(tsp(16, [(1, 2, 0), (11, 5, 5), (9, 8, 4), (6, 1, 4), (5, 13, 5), (12, 11, 4), (14, 8, 0), (0, 11, 3), (10, 12, 3), (5, 5, 1), (7, 0, 1), (10, 5, 1), (11, 5, 3), (13, 11, 4), (11, 11, 3), (5, 12, 5), (14, 7, 3), (8, 15, 4), (11, 14, 3), (11, 14, 3), (7, 10, 5), (5, 8, 3), (9, 9, 5), (13, 9, 5), (6, 15, 4), (11, 2, 2), (0, 6, 5), (3, 1, 4), (1, 8, 4), (7, 3, 4), (4, 8, 1), (6, 1, 3), (1, 1, 2), (11, 5, 1), (0, 2, 0), (2, 0, 0), (0, 11, 2), (4, 5, 5), (5, 0, 3), (1, 7, 1), (1, 0, 2), (3, 9, 2), (15, 0, 2), (14, 1, 2), (12, 4, 3), (7, 2, 5), (10, 3, 0), (14, 4, 4), (12, 15, 4), (10, 4, 2), (8, 8, 4), (13, 0, 5), (4, 1, 2), (1, 4, 1), (5, 3, 3), (7, 1, 1), (7, 14, 0), (8, 2, 4), (7, 11, 2), (13, 8, 4), (0, 4, 0), (12, 13, 1), (3, 2, 1), (3, 3, 0), (5, 7, 0), (6, 0, 4), (14, 14, 2), (12, 6, 5), (6, 13, 3), (0, 1, 3), (5, 3, 5), (15, 11, 0), (3, 11, 2), (11, 9, 0), (13, 3, 0), (9, 6, 5), (0, 14, 0), (13, 15, 3), (6, 2, 0), (9, 0, 2), (9, 2, 1), (15, 6, 0), (11, 12, 5), (14, 4, 2), (12, 3, 2), (3, 3, 0), (10, 12, 1), (3, 0, 4), (15, 1, 5), (15, 9, 2), (14, 4, 2), (8, 15, 4), (15, 13, 3), (9, 12, 1), (5, 15, 4), (8, 13, 5), (2, 3, 0), (11, 5, 4), (4, 13, 0), (2, 1, 1)]))
