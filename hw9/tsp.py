@@ -2,20 +2,6 @@ from collections import defaultdict
 import copy
 from time import time
 
-def trans_bit(n, array):
-    res = 0
-    for i in range(n):
-        if i in array:
-            res = (res<<1) + 1
-        else:
-            res = res<<1
-    if -1 in array:
-        res = (res<<1) + 1
-    else:
-        res = res<<1
-    return res
-
-
 def insert_vertex(n, v, bit):
     if v == -1:
         return bit + 1
