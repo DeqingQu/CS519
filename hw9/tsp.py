@@ -15,8 +15,20 @@ def trans_bit(n, array):
         res = res<<1
     return res
 
-def tsp(n, edges):
 
+def insert_vertex(n, v, bit):
+    if v == -1:
+        return bit + 1
+    else:
+        return bit + 2**(n-v)
+
+def remove_vertex(n, v, bit):
+    if v == -1:
+        return bit - 1
+    else:
+        return bit - 2**(n-v)
+
+def tsp(n, edges):
     graph = defaultdict(dict)
     for (u, v, w) in edges:
         graph[u][v] = w
@@ -31,47 +43,63 @@ def tsp(n, edges):
     opt = defaultdict(dict)
     back = defaultdict(dict)
 
-    def tsp_helper(visited, i):
-        if visited == {0} and i == 0:
+    def tsp_helper(visited_bit, i):
+        if visited_bit == 2**n and i == 0:
             return 0
-        bit = trans_bit(n, visited)
-        if i in opt[bit]:
-            return opt[bit][i]
+        if i in opt[visited_bit]:
+            return opt[visited_bit][i]
         min_cost = float("inf")
-        for v in visited:
-            if v != i and v in graph[i]:
-                new_visited = copy.deepcopy(visited)
-                new_visited.remove(i)
-                temp = tsp_helper(new_visited, v)
-                if temp is not None and min_cost > temp + graph[v][i]:
-                    min_cost = temp + graph[v][i]
-                    back[bit][i] = v
+        for v in range(n):
+            if 2**(n-v) & visited_bit != 0:
+                if v != i and v in graph[i]:
+                    new_visited_bit = remove_vertex(n, i, visited_bit)
+                    temp = tsp_helper(new_visited_bit, v)
+                    if temp is not None and min_cost > temp + graph[v][i]:
+                        min_cost = temp + graph[v][i]
+                        back[visited_bit][i] = v
 
         if min_cost == float("inf"):
-            opt[bit][i] = None
+            opt[visited_bit][i] = None
         else:
-            opt[bit][i] = min_cost
-        return opt[bit][i]
+            opt[visited_bit][i] = min_cost
+        return opt[visited_bit][i]
 
-    def solution(visited, i):
-        if visited == {0} and i == 0:
+    def solution(visited_bit, i):
+        if visited_bit == 2**n and i == 0:
             return [0]
-        bit = trans_bit(n, visited)
-        vertex = back[bit][i]
-        new_visited = copy.deepcopy(visited)
-        new_visited.remove(i)
+        vertex = back[visited_bit][i]
+        new_visited_bit = remove_vertex(n, i, visited_bit)
         if i == -1: i = 0
-        return solution(new_visited, vertex) + [i]
+        return solution(new_visited_bit, vertex) + [i]
 
-    vertices = set()
+    vertices_bit = 0
     for i in range(n):
-        vertices.add(i)
-    vertices.add(-1)
+        vertices_bit = insert_vertex(n, i, vertices_bit)
+    vertices_bit = insert_vertex(n, -1, vertices_bit)
 
-    return tsp_helper(vertices, -1), solution(vertices, -1)
+    return tsp_helper(vertices_bit, -1), solution(vertices_bit, -1)
 
 if __name__ == '__main__':
+    def bit_test_cases():
+        bit = 0
+        n = 2
+        bit = insert_vertex(n, -1, bit)
+        print(bit)  #   1
+        bit = insert_vertex(n, 0, bit)
+        print(bit)  #   5
+        bit = insert_vertex(n, 1, bit)
+        print(bit)  #   7
+        bit = remove_vertex(n, -1, bit)
+        print(bit)  #   6
+        bit = remove_vertex(n, 1, bit)
+        print(bit)  #   4
+        bit = remove_vertex(n, 0, bit)
+        print(bit)  #   0
 
+    bit_test_cases()
+
+    print(tsp(2, [(0, 1, 1)]))
+    print(tsp(3, [(0, 1, 1), (1, 2, 2), (0, 2, 3)]))
     print(tsp(4, [(0, 1, 1), (0, 2, 5), (1, 2, 1), (2, 3, 2), (1, 3, 6)]))
     print(tsp(4, [(0, 1, 1), (0, 2, 5), (1, 2, 1), (2, 3, 2), (1, 3, 6), (3, 0, 1)]))
 
