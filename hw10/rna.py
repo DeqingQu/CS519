@@ -1,7 +1,17 @@
 from collections import defaultdict
 
 def best(sequence):
-    return sequence
+
+    opt = defaultdict(int)
+    if sequence not in opt:
+        if len(sequence) == 1:
+            opt[sequence] = (0, '.')
+        else:
+            l = len(sequence)
+            sub_sequence = sequence[:l-1]
+            n, res = best(sub_sequence)
+            opt[sequence] = (n+1, res+'.')
+    return opt[sequence]
 
 
 def total(sequence):
