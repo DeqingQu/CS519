@@ -1,46 +1,56 @@
 from collections import defaultdict
 
+def pairNule(a, b):
+    if a == 'U' and (b == 'A' or b == 'G'):
+        return True
+    if a == 'G' and (b == 'C' or b == 'U'):
+        return True
+    if a == 'C' and b == 'G':
+        return True
+    if a == 'A' and b == 'U':
+        return True
+    return False
+
 def best(sequence):
 
     opt = defaultdict(int)
     if sequence not in opt:
         if len(sequence) == 1:
             opt[sequence] = (0, '.')
+        elif len(sequence) == 0:
+            opt[sequence] = (0, '')
         else:
             l = len(sequence)
-            sub_sequence = sequence[:l-1]
+            sub_sequence = sequence[1:l-1]
             n, s = best(sub_sequence)
-            res = list(s)
+            res = ['.'] + list(s) + ['.']
             stack = []
-            increase = False
-            for i in range(l-2, -1, -1):
-                if res[i] == ')':
-                    stack.append(')')
-                elif res[i] == '(':
+            for i in range(1, l):
+                if res[i] == '(':
+                    stack.append('(')
+                elif res[i] == ')':
                     stack.pop()
-                if res[i] == '.' and len(stack) == 0:
-                    if sequence[l-1] == 'U' and (sequence[i] == 'A' or sequence[i] == 'G'):
-                        res[i] = '('
-                        increase = True
+                elif len(stack) == 0:
+                    if pairNule(sequence[0], sequence[i]):
+                        res[0] = '('
+                        res[i] = ')'
+                        n += 1
                         break
-                    if sequence[l-1] == 'G' and (sequence[i] == 'C' or sequence[i] == 'U'):
-                        res[i] = '('
-                        increase = True
-                        break
-                    if sequence[l-1] == 'C' and sequence[i] == 'G':
-                        res[i] = '('
-                        increase = True
-                        break
-                    if sequence[l-1] == 'A' and sequence[i] == 'U':
-                        res[i] = '('
-                        increase = True
-                        break
-            if increase:
-                res.append(')')
-                opt[sequence] = (n + 1, "".join(res))
-            else:
-                res.append('.')
-                opt[sequence] = (n, "".join(res))
+            if res[l-1] == '.':
+                stack = []
+                for i in range(l-2, -1, -1):
+                    if res[i] == ')':
+                        stack.append(')')
+                    elif res[i] == '(':
+                        stack.pop()
+                    elif len(stack) == 0:
+                        if pairNule(sequence[l-1], sequence[i]):
+                            res[l-1] = ')'
+                            res[i] = '('
+                            n += 1
+                            break
+            opt[sequence] = (n, "".join(res))
+
     return opt[sequence]
 
 
@@ -52,6 +62,7 @@ def kbest(sequence, k):
 
 if __name__ == '__main__':
 
+    print(best("CGAGGUGGCACUGACCAAACACCACCGAAAC"))
     print(best("ACAGU"))
     print(best("ACAGU"))
     print(best("GCACG"))
