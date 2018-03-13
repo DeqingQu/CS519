@@ -77,6 +77,7 @@ def total(sequence, opt=defaultdict(int)):
             opt[sequence] = sum
     return opt[sequence]
 
+
 def kbest(sequence, k):
     return sequence, k
 
