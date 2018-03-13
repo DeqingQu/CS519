@@ -19,20 +19,20 @@ def best(sequence, opt=defaultdict(int)):
         elif len(sequence) == 0:
             opt[sequence] = (0, '')
         else:
-            max_pair, str_pair, l = 0, [], len(sequence)
+            max_pair, str_pair, l = 0, '', len(sequence)
             #   best(i+1, j-1) + 1
             if pairNule(sequence[0], sequence[l-1]) == True:
                 pre_max, pre_res = best(sequence[1:l-1])
                 max_pair = 1 + pre_max
-                str_pair = ['('] + list(pre_res) + [')']
+                str_pair = '(' + pre_res + ')'
             #   max (best(i,k) + best(k+1,j))
             for k in range(1, l-1):
                 pre_max_1, pre_res_1 = best(sequence[:k])
                 pre_max_2, pre_res_2 = best(sequence[k:])
                 if pre_max_1 + pre_max_2 > max_pair:
                     max_pair = pre_max_1 + pre_max_2
-                    str_pair = list(pre_res_1) + list(pre_res_2)
-            opt[sequence] = (max_pair, "".join(str_pair))
+                    str_pair = pre_res_1 + pre_res_2
+            opt[sequence] = (max_pair, str_pair)
     return opt[sequence]
 
 
