@@ -36,6 +36,7 @@ def best_dup(sequence, opt=defaultdict(int)):
             opt[sequence] = (max_pair, str_pair)
     return opt[sequence]
 
+#   Second version for best and total
 def best(sequence, opt=defaultdict(int)):
     if sequence not in opt:
         if len(sequence) == 1:
@@ -83,15 +84,10 @@ def kbest(sequence, k):
 
 if __name__ == '__main__':
 
-    print(best_dup("AGGCAUCAAACCCUGCAUGGGAGCACCGCCACUGGCGAUUUUGGUA"))
     print(best("AGGCAUCAAACCCUGCAUGGGAGCACCGCCACUGGCGAUUUUGGUA"))
-    print(best_dup("ACAGU"))
     print(best("ACAGU"))
-    print(best_dup("GCACG"))
     print(best("GCACG"))
-    print(best_dup("UUCAGGA"))
     print(best("UUCAGGA"))
-    print(best_dup("GUUAGAGUCU"))
     print(best("GUUAGAGUCU"))
 
     print(total("ACAGU"))
