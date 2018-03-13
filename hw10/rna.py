@@ -60,8 +60,22 @@ def best(sequence, opt=defaultdict(int)):
     return opt[sequence]
 
 
-def total(sequence):
-    return len(sequence)
+def total(sequence, opt=defaultdict(int)):
+    if sequence not in opt:
+        if len(sequence) == 1:
+            opt[sequence] = 1
+        elif len(sequence) == 0:
+            opt[sequence] = 1
+        else:
+            sum, l = 0, len(sequence)
+            #   best(i+1, j)
+            sum += total(sequence[1:])
+            #   max(1+best(1,k)+best(k+1, j))
+            for k in range(1, l):
+                if pairNule(sequence[0], sequence[k]):
+                    sum += total(sequence[1:k]) * total(sequence[k+1:])
+            opt[sequence] = sum
+    return opt[sequence]
 
 def kbest(sequence, k):
     return sequence, k
