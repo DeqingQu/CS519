@@ -11,8 +11,8 @@ def pairNule(a, b):
         return True
     return False
 
-def best(sequence):
-    opt = defaultdict(int)
+def best(sequence, opt=defaultdict(int)):
+
     if sequence not in opt:
         if len(sequence) == 1:
             opt[sequence] = (0, '.')
@@ -45,9 +45,9 @@ def kbest(sequence, k):
 
 if __name__ == '__main__':
 
-    # print(best("AACCGCUGUGUCAAGCCCACAU"))
-    # print(best("AACCGCUGUGUCAAGCCCAUCCUGCCUUGUU"))
-    # print(best("ACAGU"))
+    print(best("AACCGCUGUGUCAAGCCCACAU"))
+    print(best("AACCGCUGUGUCAAGCCCAUCCUGCCUUGUU"))
+    print(best("ACAGU"))
     print(best("GCACG"))
     print(best("UUCAGGA"))
     print(best("GUUAGAGUCU"))
