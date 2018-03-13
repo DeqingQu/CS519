@@ -12,7 +12,6 @@ def pairNule(a, b):
     return False
 
 def best(sequence):
-
     opt = defaultdict(int)
     if sequence not in opt:
         if len(sequence) == 1:
@@ -20,37 +19,21 @@ def best(sequence):
         elif len(sequence) == 0:
             opt[sequence] = (0, '')
         else:
-            l = len(sequence)
-            sub_sequence = sequence[1:l-1]
-            n, s = best(sub_sequence)
-            res = ['.'] + list(s) + ['.']
-            stack = []
-            for i in range(1, l):
-                if res[i] == '(':
-                    stack.append('(')
-                elif res[i] == ')':
-                    stack.pop()
-                elif len(stack) == 0:
-                    if pairNule(sequence[0], sequence[i]):
-                        res[0] = '('
-                        res[i] = ')'
-                        n += 1
-                        break
-            if res[l-1] == '.':
-                stack = []
-                for i in range(l-2, -1, -1):
-                    if res[i] == ')':
-                        stack.append(')')
-                    elif res[i] == '(':
-                        stack.pop()
-                    elif len(stack) == 0:
-                        if pairNule(sequence[l-1], sequence[i]):
-                            res[l-1] = ')'
-                            res[i] = '('
-                            n += 1
-                            break
-            opt[sequence] = (n, "".join(res))
-
+            max_pair, str_pair, l = 0, [], len(sequence)
+            #   best(i+1, j-1) + 1
+            if pairNule(sequence[0], sequence[l-1]) == True:
+                pre_max, pre_res = best(sequence[1:l-1])
+                max_pair = 1 + pre_max
+                str_pair = ['('] + list(pre_res) + [')']
+            #   max (best(i,k) + best(k+1,j))
+            else:
+                for k in range(1, l-1):
+                    pre_max_1, pre_res_1 = best(sequence[:k])
+                    pre_max_2, pre_res_2 = best(sequence[k+1:])
+                    if pre_max_1 + pre_max_2 > max_pair:
+                        max_pair = pre_max_1 + pre_max_2
+                        str_pair = list(pre_res_1) + list(pre_res_2)
+            opt[sequence] = (max_pair, "".join(str_pair))
     return opt[sequence]
 
 
@@ -62,8 +45,8 @@ def kbest(sequence, k):
 
 if __name__ == '__main__':
 
-    print(best("CGAGGUGGCACUGACCAAACACCACCGAAAC"))
-    print(best("ACAGU"))
+    # print(best("AACCGCUGUGUCAAGCCCACAU"))
+    print(best("AACCGCUGUGUCAAGCCCAUCCUGCCUUGUU"))
     print(best("ACAGU"))
     print(best("GCACG"))
     print(best("UUCAGGA"))
