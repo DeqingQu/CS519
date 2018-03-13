@@ -29,7 +29,7 @@ def best(sequence):
             else:
                 for k in range(1, l-1):
                     pre_max_1, pre_res_1 = best(sequence[:k])
-                    pre_max_2, pre_res_2 = best(sequence[k+1:])
+                    pre_max_2, pre_res_2 = best(sequence[k:])
                     if pre_max_1 + pre_max_2 > max_pair:
                         max_pair = pre_max_1 + pre_max_2
                         str_pair = list(pre_res_1) + list(pre_res_2)
@@ -46,8 +46,8 @@ def kbest(sequence, k):
 if __name__ == '__main__':
 
     # print(best("AACCGCUGUGUCAAGCCCACAU"))
-    print(best("AACCGCUGUGUCAAGCCCAUCCUGCCUUGUU"))
-    print(best("ACAGU"))
+    # print(best("AACCGCUGUGUCAAGCCCAUCCUGCCUUGUU"))
+    # print(best("ACAGU"))
     print(best("GCACG"))
     print(best("UUCAGGA"))
     print(best("GUUAGAGUCU"))
