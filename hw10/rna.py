@@ -27,7 +27,7 @@ def best(sequence):
                         res[i] = '('
                         increase = True
                         break
-                    if sequence[l-1] == 'U' and sequence[i] == 'G':
+                    if sequence[l-1] == 'C' and sequence[i] == 'G':
                         res[i] = '('
                         increase = True
                         break
@@ -53,6 +53,8 @@ def kbest(sequence, k):
 if __name__ == '__main__':
 
     print(best("ACAGU"))
+    print(best("ACAGU"))
+    print(best("GCACG"))
     print(best("UUCAGGA"))
     print(best("GUUAGAGUCU"))
 
