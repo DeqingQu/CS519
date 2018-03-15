@@ -82,6 +82,7 @@ def total(sequence, opt=defaultdict(int)):
 def kbest(sequence, k):
     return sequence, k
 
+
 if __name__ == '__main__':
 
     print(best("AGGCAUCAAACCCUGCAUGGGAGCACCGCCACUGGCGAUUUUGGUA"))
