@@ -9,7 +9,7 @@ There will be a short fill-in-the-blanks question (DP) in the Final, similar to 
 1. Give a real-life example of "non-constant" priorities,
    i.e., when do you need to call "decrease-key()" as in Dijkstra?
 
-A: emergency room: call decreasy-key() when a patient's condition worsens.
+A: emergency room: call decrease-key() when a patient's condition worsens.
 
 2. Describe how to implement decrease-key().
 
@@ -17,9 +17,11 @@ A:
 see heapdict.py
 
 decrease-key(v, newkey):
-1) look up heapdict and find the position of v, change the key to newkey;
-2) continuously pop v in heap using its newkey, until it is larger than its father in heap;
-3) when swapping, update the position of two nodes in heapdict.
+1) look up the hash and find the position of v, change the key to newkey;
+2) bubble-up: continuously swap v with its parent in heap, until it is larger than its parent.
+3) when swapping, update the position of two nodes in the hash.
+
+note: there is another implementation in priority_dict.py using slightly different ideas.
 
 3. For the following graphs, decide whether they are
    (1) directed or undirected, (2) dense or sparse, and (3) cyclic or acyclic:
@@ -91,7 +93,7 @@ Note: (c) is faster than (a-b) for dense graphs, but since big dense graphs are 
 
 8. Dijkstra with integer weights: suppose all edge weights are in {1..W}
    where W is a positive integer but not a const.
-   Modify priority queue datastructure to achieve O(VW+E) time. (hint: no heap).
+   Modify priority queue data structure to achieve O(VW+E) time. (hint: no heap).
 
 A:
 Similar to bucket-sort, your priority queue is actually (V-1)W+1 buckets (0, 1, ..., (V-1)W).
@@ -148,14 +150,14 @@ false[i][i+1] = 1 if e[i] is F else 0
 
 true[i][j] =
 sum(
-true[i][k] * true[k][j], if o[k] is +;
-true[i][k] * true[k][j] + true[i][k] * false[k][j] + false[i][k] * true[k][j], if o[k] is *;
+true[i][k] * true[k][j], if o[k] is *;
+true[i][k] * true[k][j] + true[i][k] * false[k][j] + false[i][k] * true[k][j], if o[k] is +;
 ) for i<k<j
 
 false[i][j] =
 sum(
-true[i][k] * false[k][j] + false[i][k] * true[k][j] + false[i][k] * false[k][j], if o[k] is +;
-false[i][k] * false[k][j], if o[k] is *;
+true[i][k] * false[k][j] + false[i][k] * true[k][j] + false[i][k] * false[k][j], if o[k] is *;
+false[i][k] * false[k][j], if o[k] is +;
 } for i<k<j
 
 goal: true[0][n]
@@ -177,18 +179,25 @@ A:
 opt[n] =
 {
 1, if n is a square number;
-opt[n-k*k]+1, for 1<=k<sqrt(n)
+min opt[n-k*k]+1, for 1<=k<sqrt(n)
 }
 
-the time complexity is smaller than O(n^1.5) (H_n^(-0.5), H is the generalized harmonic number)
+the time complexity is O(n^1.5) (or more accurately: H_n^(-0.5), H is the generalized harmonic number)
 
 14. How to get k-best shortest path using Viterbi? (cf. hw10 RNA k-best)
+
 A: each vertex stores k-best shortest paths from the source.
    backward update becomes merging many sorted lists, but only need top k out of them.
    time: O(E + V k log k).
 
    Note: this is not the fastest, but very easy to implement.
    	 for a faster algorithm, see Huang and Chiang (2005) Algorithm 3.
+
+Follow-up: what's the real-life application of k-best shortest paths?
+A: Think about Google Map, which used to present a single path for directions,
+   but now presents alternative paths (shortest vs. fastest, etc.)
+   Sometimes a user prefers to avoid freeway, ferry, etc., and often the user's objective function
+   is multi-dimensional (time, distance, traffic, etc.) so s/he would benefit from multiple choices.
 
 15. For single-source single-sink shortest paths on DAGs with non-negative weights,
     which one is faster, Dijkstra or Viterbi?

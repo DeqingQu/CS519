@@ -1,4 +1,5 @@
 from collections import defaultdict
+import heapq
 
 def pairNule(a, b):
     if a == 'U' and (b == 'A' or b == 'G'):
@@ -79,12 +80,66 @@ def total(sequence, opt=defaultdict(int)):
     return opt[sequence]
 
 
-def kbest(sequence, k):
-    return sequence, k
+def kbest(sequence, k, opt=defaultdict(int)):
+    if sequence not in opt:
+        if len(sequence) == 1:
+            opt[sequence] = [(0, '.')]
+        elif len(sequence) == 0:
+            opt[sequence] = [(0, '')]
+        else:
+
+            h, matrix, used, length = [], [], set(), len(sequence)
+
+            arr = kbest(sequence[1:], k)
+            heapq.heappush(h, (-arr[0][0], '.'+arr[0][1], 0, 0))
+            matrix.append((sequence[1:]))
+            used.add((sequence[1:], 0))
+
+            matrix_length = 1
+            for l in range(1, length):
+                if pairNule(sequence[0], sequence[l]):
+                    left_arr = kbest(sequence[1:l], k)
+                    right_arr = kbest(sequence[l+1:], k)
+                    heapq.heappush(h, (-(left_arr[0][0]+right_arr[0][0]+1), '('+left_arr[0][1]+')'+right_arr[0][1], matrix_length, 0, 0))
+                    matrix.append((sequence[1:l], sequence[l+1:]))
+                    used.add((sequence[1:l], sequence[l+1:], 0, 0))
+                    matrix_length += 1
+
+            res = []
+            while(len(res) < k and len(h) != 0):
+                obj = heapq.heappop(h)
+                res.append((-obj[0], obj[1]))
+                matrix_id = obj[2]
+                #   in 1-D situation, not matrix
+                if matrix_id == 0:
+                    idx = obj[3]
+                    arr = kbest(matrix[0][0], k)
+                    if idx+1 < len(arr) and (matrix[0][0], idx+1) not in used:
+                        heapq.heappush(h, (-arr[idx+1][0], '.'+arr[idx+1][1], 0, idx+1))
+                        used.add((matrix[0][0], idx+1))
+                # in matrix
+                else:
+                    left_idx, right_idx = obj[3], obj[4]
+                    left_arr = kbest(matrix[matrix_id][0], k)
+                    right_arr = kbest(matrix[matrix_id][1], k)
+                    if left_idx+1 < len(left_arr) and (matrix[matrix_id][0], matrix[matrix_id][1], left_idx+1, right_idx) not in used:
+                        heapq.heappush(h, (-(left_arr[left_idx+1][0] + right_arr[right_idx][0] + 1),
+                                           '('+left_arr[left_idx+1][1]+')'+right_arr[right_idx][1], matrix_id,
+                                           left_idx+1, right_idx))
+                        used.add((matrix[matrix_id][0], matrix[matrix_id][1], left_idx+1, right_idx))
+                    if right_idx+1 < len(right_arr) and (matrix[matrix_id][0], matrix[matrix_id][1], left_idx, right_idx+1) not in used:
+                        heapq.heappush(h, (-(left_arr[left_idx][0] + right_arr[right_idx+1][0] + 1),
+                                           '(' + left_arr[left_idx][1] + ')' + right_arr[right_idx+1][1], matrix_id,
+                                           left_idx, right_idx+1))
+                        used.add((matrix[matrix_id][0], matrix[matrix_id][1], left_idx, right_idx+1))
+
+            opt[sequence] = res
+    return opt[sequence]
 
 
 if __name__ == '__main__':
 
+    print(best("AU"))
     print(best("AGGCAUCAAACCCUGCAUGGGAGCACCGCCACUGGCGAUUUUGGUA"))
     print(best("ACAGU"))
     print(best("GCACG"))
