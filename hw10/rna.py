@@ -113,10 +113,10 @@ def kbest(sequence, k, opt=defaultdict(int)):
                 #   in 1-D situation, not matrix
                 if matrix_id == 0:
                     idx = obj[3]
-                    arr = kbest(matrix[0][0], k)
-                    if idx+1 < len(arr) and (matrix[0][0], idx+1) not in used:
+                    arr = kbest(matrix[0], k)
+                    if idx+1 < len(arr) and (matrix[0], idx+1) not in used:
                         heapq.heappush(h, (-arr[idx+1][0], '.'+arr[idx+1][1], 0, idx+1))
-                        used.add((matrix[0][0], idx+1))
+                        used.add((matrix[0], idx+1))
                 # in matrix
                 else:
                     left_idx, right_idx = obj[3], obj[4]
@@ -144,8 +144,9 @@ if __name__ == '__main__':
     print(best("ACAGU"))
     print(best("GCACG"))
     print(best("UUCAGGA"))
-    print(best("GUUAGAGUCU"))
+    print(best("AGGCAUCAAACCCUGCAUGGGAGCG"))
 
     print(total("ACAGU"))
 
-    print(kbest("ACAGU", 3))
+    # print(kbest("ACGCG", 5))
+    print(kbest("AGGCAUCAAACCCUGCAUGGGAGCG", 10))
