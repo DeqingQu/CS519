@@ -3,7 +3,9 @@ Debriefing (required!): --------------------------
 0. Deqing Qu
 1. more than 6 hours
 2. difficult
-3. I worked on it mostly alone
-4. 80%
-5. Which part(s) of the course you like the most so far?
-6. Which part(s) of the course you dislike the most so far?
+3. I worked on it alone
+4. 90%
+5. Q3 in hw10 and TSP are the most difficult and challenging questions in this class. Comparing to coding, how to get the
+ idea of the solution is the most difficult part of the problem and I possibly can't figure out the solution alone. After
+ Dr. Huang explained all solutions on class, it is not so hard to implement them in python.
+6. None.
